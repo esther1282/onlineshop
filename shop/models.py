@@ -21,7 +21,7 @@ class Product(models.Model):
         return self.name
 
 def product_image_path(instance, filename):
-    return 'static/images/shop/{}'.format(filename)
+    return '/static/images/shop/{}'.format(filename)
 
 class ProductImage(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)

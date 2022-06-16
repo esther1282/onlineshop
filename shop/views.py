@@ -4,7 +4,12 @@ from django.shortcuts import render, get_object_or_404
 def index(request):
     all_products = Product.objects.all()
     product_image = ProductImage.objects.get(pk=2)
-    return render(request, 'shop/index.html', {'all_products': all_products, 'product_image': product_image})
+
+    if request.user.is_authenticated:
+        username = request.user.username
+    else:
+        username = ' '
+    return render(request, 'shop/index.html', {'all_products': all_products, 'product_image': product_image, 'username':username})
 
 def detail(request, product_id):
     product = get_object_or_404(Product, pk=product_id)

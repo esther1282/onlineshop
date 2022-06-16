@@ -1,0 +1,25 @@
+{% extends "user/base.html" %}
+
+<h1>Here is SignUp page</h1>
+{% block title %}
+Sign Up 
+{% endblock title %}
+
+{% block content %}
+<div class="auth">
+    <form action="{% url 'user:signup'%}" method="post">
+        {% csrf_token %}
+        {% for field in form %}
+        <div class="fieldWrapper">
+            {{ field.errors }}
+            {{ field }}
+        </div>
+        {% endfor %}
+        <input type="submit" value="Sign up">
+    </form>
+</div>
+
+<div class="auth_link">
+    <p><a href="{% url 'user:login' %}">로그인</a></p>
+</div>
+{% endblock content %}
