@@ -1,0 +1,26 @@
+<div class="goods-container container-fluid">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <h1>GOTROOT goods site </h1>
+        </div>
+        {% if all_products %}
+            {% for product in all_products %}
+                <div class="col-sm-4 col-lg-2">
+                    <div class="thumbnail">
+                        <a href="{% url 'shop:detail' product.pk %}">
+                            <img src="{{ product_image.image.url }}" class="img-fluid">
+                        </a>
+                        <div class="caption">
+                            <h2>{{ product.name }}</h2>
+                            <h4>$ {{ product.price }}</h4>
+                        </div>
+                    </div>
+                </div>
+                {% cycle '' '' '' '' '' '<div class="clearfix visible-lg"></div>' %}
+            {% endfor %}
+        {% else %}
+            <h3>You don't have any products</h3>
+        {% endif %}
+    </div>
+</div>
