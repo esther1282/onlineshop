@@ -1,11 +1,10 @@
 {% extends "user/base.html" %}
-
-<h1>Here is SignUp page</h1>
 {% block title %}
 Sign Up 
 {% endblock title %}
 
 {% block content %}
+    <h1>SignUp</h1>
 <div class="auth">
     <form action="{% url 'user:signup'%}" method="post">
         {% csrf_token %}

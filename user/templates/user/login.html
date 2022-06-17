@@ -1,11 +1,11 @@
 {% extends "user/base.html" %}
 
-<h1>Here is Login page</h1>
 {% block title %}
 Log in
 {% endblock title %}
 
 {% block content %}
+        <h1>Login</h1>
 <div class="auth">
     <form action="{% url 'user:login' %}" method='post'>
         {% csrf_token %}
