@@ -1,4 +1,4 @@
-<h1> {{ product.category}} - {{ product.name }}</h1>
+<h1> [ {{ product.category}} ] {{ product.name }}</h1>
     <div>
     {% for image in product_images %}
         <img src="{{ image.image.url }}" style="width: auto; height: 300px;">
@@ -6,3 +6,5 @@
     </div>
 <h3> Description: {{ product.content }}</h3>
 <h3> Price: {{ product.price }}</h3>
+<button onclick='location.href="{% url 'cart:add_cart' product.id %}"'>장바구니</button>
+<button onclick='location.href="{% url 'order:index' %}"'>주문</button>
