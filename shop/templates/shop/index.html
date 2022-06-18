@@ -1,25 +1,22 @@
-{% load tags %}
 {% ifnotequal username ' ' %}
     <p> {{ username }} 님 환영합니다.
-    <h1>GOTROOT goods site </h1>
     <button onclick='location.href="{% url 'user:mypage' %}"'>마이페이지</button>
-    <button onclick='location.href="{% url 'cart:index' %}"'>장바구니</button>
+    <button onclick='location.href="{% url 'user:mybag' %}"'>장바구니</button>
     <button onclick='location.href="{% url 'user:logout' %}"'>로그아웃</button>
     </p>
 {% else %}
     <p> 로그인하세요. </p>
-<div class="row mt-5">
-    <div class="col-sm-12">
-        <ul>
-            <button onclick='location.href="{% url 'user:signup' %}"'>회원가입</button>
-            <button onclick='location.href="{% url 'user:login' %}"'>로그인</button>
-        </ul>
-        <h1>GOTROOT goods site </h1>
-    </div>
-</div>
+    <button onclick='location.href="{% url 'user:signup' %}"'>회원가입</button>
+    <button onclick='location.href="{% url 'user:login' %}"'>로그인</button>
 {% endifnotequal %}
+<div class="row mt-5">
+
 <div class="goods-container container-fluid">
+
     <div class="row">
+        <div class="col-sm-12">
+            <h1>GOTROOT goods site </h1>
+        </div>
         {% if all_products %}
             {% for product in all_products %}
             <div class="col-sm-4 col-lg-2" style="float: left; width: 33%;">
