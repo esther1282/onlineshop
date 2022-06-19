@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+from django.contrib.auth.forms import UserChangeForm
 from django import forms
 
 User = get_user_model()
@@ -20,3 +21,8 @@ class SignUpForm(forms.ModelForm):
         if commit:
             user.save()
         return user
+
+class CustomUserChangeForm(UserChangeForm):
+    class Meta:
+        model = User
+        fields = ['username', 'password']

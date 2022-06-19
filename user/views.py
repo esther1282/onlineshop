@@ -1,14 +1,14 @@
 import json
-
 from django.views import View
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
-from django.contrib.auth import models, authenticate, login as auth_login, logout as auth_logout
+from django.contrib.auth import models, authenticate, get_user_model, login as auth_login, logout as auth_logout
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_http_methods
 
-from .forms import SignUpForm
+from .forms import SignUpForm, CustomUserChangeForm
+
 
 @require_http_methods(['GET', 'POST'])
 def login(request):
@@ -57,5 +57,16 @@ def logout(request):
 def mybag(request):
     return render(request, 'user/mybag.html')
 @login_required
-def mypage(request):
-    return render(request, 'user/mypage.html')
+def profile(request, pk):
+    user = get_object_or_404(get_user_model(), pk=pk)
+    context={
+        'user':user
+    }
+    return render(request, 'user/profile.html', context)
+@login_required
+def update(request, pk):
+    form = CustomUserChangeForm()
+    context = {
+        'form':form
+    }
+    return render(request, 'user/update.html', context)

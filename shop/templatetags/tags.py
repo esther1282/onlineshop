@@ -1,12 +1,13 @@
 from django import template
-from shop.models import ProductImage
+#from shop.models import ProductImage
 from django.shortcuts import get_object_or_404
-
+from ..models import ProductImage
 register = template.Library()
 
 @register.filter()
 def image_tag(value):
-    product_image = get_object_or_404(ProductImage, product=value, is_represent=True)
-    if not product_image:
+    try:
+        product_image = ProductImage.objects.get(product=value, is_represent=True)
+        return product_image.image.url
+    except:
         return "#"
-    return product_image.image.url
