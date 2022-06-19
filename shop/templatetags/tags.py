@@ -6,7 +6,8 @@ register = template.Library()
 
 @register.filter()
 def image_tag(value):
-    product_image = get_object_or_404(ProductImage, product=value, is_represent=True)
-    if not product_image:
+    try:
+        product_image = ProductImage.objects.get(product=value, is_represent=True)
+        return product_image.image.url
+    except:
         return "#"
-    return product_image.image.url

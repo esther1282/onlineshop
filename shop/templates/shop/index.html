@@ -1,3 +1,4 @@
+{% load tags %}
 {% ifnotequal username ' ' %}
     <p> {{ username }} 님 환영합니다.
     <button onclick='location.href="{% url 'user:mypage' %}"'>마이페이지</button>
