@@ -1,13 +1,20 @@
 {% extends "user/base.html" %}
+{% block title %}
+UserUpdate
+{% endblock title %}
+
 {% block content %}
-    <form action="" method="POST">
+    <div class="auth">
+    <form action="{% url 'user:update' user.pk %}" method="post">
         {% csrf_token %}
-        {% for field in form %}
-        <div class="fieldWrapper">
+        {% for field in user_form %}
             {{ field.errors }}
             {{ field }}
-        </div>
         {% endfor %}
-        <button class="btn btn-primary">수정</button>
+        {{ profile_form.phone_number }}
+        {{ profile_form.address }}
+        {{ profile_form.gender }}
+        <input type="submit" value="업데이트">
     </form>
-{% endblock content%}
+    </div>
+{% endblock content %}

@@ -7,8 +7,7 @@ from django.contrib.auth import models, authenticate, get_user_model, login as a
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_http_methods
 
-from .forms import SignUpForm, CustomUserChangeForm
-
+from .forms import SignUpForm,UpdateUserForm,UpdateProfileForm
 
 @require_http_methods(['GET', 'POST'])
 def login(request):
@@ -25,7 +24,7 @@ def login(request):
             auth_login(request, user)
             return HttpResponseRedirect(reverse('shop:index'))
         else:
-            return render(request, 'user/login.html')
+            return render(request, 'user/login.html', {'context':'로그인 실패'})
 
 @require_http_methods(['GET', 'POST'])
 def signup(request):
@@ -63,10 +62,26 @@ def profile(request, pk):
         'user':user
     }
     return render(request, 'user/profile.html', context)
+
 @login_required
 def update(request, pk):
-    form = CustomUserChangeForm()
-    context = {
-        'form':form
-    }
-    return render(request, 'user/update.html', context)
+    if request.method == 'POST':
+        user_form = UpdateUserForm(request.POST)
+        profile_form = UpdateProfileForm(request.POST)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            return render(request, 'user/profile.html', {'user_form':user_form, 'profile_form':profile_form })
+    else:
+        user_form = UpdateUserForm(instance=request.user)
+        profile_form = UpdateProfileForm(instance=request.user.profile)
+
+    return render(request, 'user/update.html', {
+        'user_form':user_form,
+        'profile_form':profile_form,
+    })
+
+@login_required
+def delete(request, pk):
+
+    return render(request, 'user/delete.html')

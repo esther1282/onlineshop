@@ -1,8 +1,7 @@
-from django.contrib.auth import get_user_model
+from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserChangeForm
 from django import forms
-
-User = get_user_model()
+from .models import Profile
 
 class SignUpForm(forms.ModelForm):
     class Meta:
@@ -22,7 +21,26 @@ class SignUpForm(forms.ModelForm):
             user.save()
         return user
 
-class CustomUserChangeForm(UserChangeForm):
+class UpdateUserForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['username', 'password']
+        widgets = {
+            'username': forms.TextInput(attrs={'placeholder': '사용자 이름'}),
+            'password': forms.PasswordInput(attrs={'placeholder': '비밀번호'}),
+        }
+
+class UpdateProfileForm(forms.ModelForm):
+    GENDER_CHOICES = [
+        ('M', 'Male'),
+        ('F', 'Female'),
+        ('C', 'Custom'),
+    ]
+    class Meta:
+        model = Profile
+        fields = ['phone_number','address', 'gender']
+        widgets = {
+            'phone_number': forms.TextInput(attrs={'placeholder': '핸드폰'}),
+            'address': forms.TextInput(attrs={'placeholder': '주소'}),
+            'gender': forms.TextInput(attrs={'placeholder': '성별'}),
+        }

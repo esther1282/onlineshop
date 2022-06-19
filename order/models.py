@@ -1,7 +1,7 @@
 from django.db import models
 
 class Order(models.Model):
-    user = models.ForeignKey('user.User', on_delete=models.SET_NULL, null=True)
+    #user = models.ForeignKey('user.User', on_delete=models.SET_NULL, null=True)
     date_ordered = models.DateTimeField(auto_now_add=True)
     shipping = models.FloatField()
     complete = models.BooleanField(default=False)

@@ -1,14 +1,14 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from shop.models import Product
-from user.models import User
-from .models import Cart, CartItem
+# from shop.models import Product
+# from user.models import User
+#from .models import Cart, CartItem
 
 def index(request):
     return render(request, 'cart/index.html')
 
 
 def addCart(request, product_id):
-    product = Product.objects.get(pk=product_id)
+    #product = Product.objects.get(pk=product_id)
     """if not request.user.is_authenticated:
         return render(request, 'shop/index.html', {'error_message': 'First Login please'})
 
