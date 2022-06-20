@@ -2,7 +2,8 @@
 {% ifnotequal user.username ' ' %}
     <p> {{ user.username }} 님 환영합니다.
     <button onclick='location.href="{% url 'user:profile' user.pk %}"'>마이페이지</button>
-    <button onclick='location.href="{% url 'user:mybag' %}"'>장바구니</button>
+    <button onclick='location.href="{% url 'cart:index' %}"'>장바구니</button>
+    <button onclick='location.href="{% url 'order:index' %}"'>주문내역</button>
     <button onclick='location.href="{% url 'user:logout' %}"'>로그아웃</button>
     </p>
 {% else %}

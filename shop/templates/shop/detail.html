@@ -1,3 +1,7 @@
+{% load static %}
+<div class="navbar-header">
+    <a class="navbar-brand" href="{% url 'shop:index' %}"><img src="{% static 'images/로고.png' %}"></a>
+</div>
 <h1> [ {{ product.category}} ] {{ product.name }}</h1>
     <div>
     {% for image in product_images %}
@@ -6,5 +10,10 @@
     </div>
 <h3> Description: {{ product.content }}</h3>
 <h3> Price: {{ product.price }}</h3>
+<h3> Stock: {{ product.quantity }}</h3>
 <button onclick='location.href="{% url 'cart:add_cart' product.id %}"'>장바구니</button>
-<button onclick='location.href="{% url 'order:index' %}"'>주문</button>
+<button onclick='location.href="{% url 'order:create' product.id %}"'>주문</button>
+
+{% if error_message %}
+    <h1 style="color:red;"><strong>{{ error_message }}</strong></h1>
+{% endif %}
