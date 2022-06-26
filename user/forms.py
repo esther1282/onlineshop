@@ -1,17 +1,19 @@
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserChangeForm
 from django import forms
-from .models import Profile
+from .models import User
+from django.contrib.auth.forms import UserCreationForm
 
-class SignUpForm(forms.ModelForm):
+class SignUpForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ['email','username', 'password']
+        fields = ['email', 'username', 'password1', 'password2']
 
         widgets = {
             'email': forms.TextInput(attrs={'placeholder': '이메일 주소'}),
             'username': forms.TextInput(attrs={'placeholder': '사용자 이름'}),
-            'password': forms.PasswordInput(attrs={'placeholder': '비밀번호'}),
+            'password1': forms.PasswordInput(attrs={'placeholder': '비밀번호'}),
+            'password2': forms.PasswordInput(attrs={'placeholder': '비밀번호확인'}),
         }
 
     def save(self, commit=True):
@@ -21,26 +23,11 @@ class SignUpForm(forms.ModelForm):
             user.save()
         return user
 
-class UpdateUserForm(forms.ModelForm):
+class UpdateUserForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['username', 'password']
         widgets = {
             'username': forms.TextInput(attrs={'placeholder': '사용자 이름'}),
             'password': forms.PasswordInput(attrs={'placeholder': '비밀번호'}),
-        }
-
-class UpdateProfileForm(forms.ModelForm):
-    GENDER_CHOICES = [
-        ('M', 'Male'),
-        ('F', 'Female'),
-        ('C', 'Custom'),
-    ]
-    class Meta:
-        model = Profile
-        fields = ['phone_number','address', 'gender']
-        widgets = {
-            'phone_number': forms.TextInput(attrs={'placeholder': '핸드폰'}),
-            'address': forms.TextInput(attrs={'placeholder': '주소'}),
-            'gender': forms.TextInput(attrs={'placeholder': '성별'}),
         }
