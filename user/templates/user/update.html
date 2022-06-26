@@ -7,13 +7,11 @@ UserUpdate
     <div class="auth">
     <form action="{% url 'user:update' user.pk %}" method="post">
         {% csrf_token %}
-        {% for field in user_form %}
+        {% for field in form %}
             {{ field.errors }}
+            {{ field.label }}
             {{ field }}
         {% endfor %}
-        {{ profile_form.phone_number }}
-        {{ profile_form.address }}
-        {{ profile_form.gender }}
         <input type="submit" value="업데이트">
     </form>
     </div>

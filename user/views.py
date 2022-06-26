@@ -1,7 +1,7 @@
 from django.views import View
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
-from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
+from django.http import HttpResponseRedirect
 from django.contrib.auth import models, authenticate, get_user_model, login as auth_login, logout as auth_logout
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_http_methods
@@ -12,18 +12,18 @@ from .forms import SignUpForm, CustomUserChangeForm
 def login(request):
     if request.user.is_authenticated:
         return HttpResponseRedirect(reverse('shop:index'))
-    if request.method == "GET":
-        return render(request, 'user/login.html')
-    elif request.method == "POST":
-        username = request.POST['username']
+    if request.method == "POST":
+        email = request.POST['email']
         password = request.POST['password']
-        user = authenticate(request, username=username, password=password)
+        user = authenticate(request, email=email, password=password)
 
         if user is not None:
             auth_login(request, user)
             return HttpResponseRedirect(reverse('shop:index'))
         else:
             return render(request, 'user/login.html', {'context':'로그인 실패'})
+    else:
+        return render(request, 'user/login.html')
 
 @require_http_methods(['GET', 'POST'])
 def signup(request):
@@ -52,14 +52,20 @@ def mybag(request):
 @login_required
 def profile(request, pk):
     user = get_object_or_404(get_user_model(), pk=pk)
-    context={
-        'user':user
+    context = {
+        'user': user
     }
     return render(request, 'user/profile.html', context)
 
 @login_required
 def update(request, pk):
-    return render(request, 'user/update.html')
+    if request.method == 'GET':
+        form = CustomUserChangeForm()
+    elif request.method == 'POST':
+        form = CustomUserChangeForm(request.POST)
+        if form.is_valid():
+            form.save()
+    return render(request, 'user/update.html', {'form': form})
 
 @login_required
 def delete(request, pk):
