@@ -1,10 +1,9 @@
 from .models import Product, ProductImage
 from django.shortcuts import render, get_object_or_404
-#Pillow test
-from PIL import ImageMath
 
 def index(request):
     all_products = Product.objects.all()
+
     user = request.user
 
     if request.user.is_authenticated is False:

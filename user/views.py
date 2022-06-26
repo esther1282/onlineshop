@@ -1,4 +1,3 @@
-import json
 from django.views import View
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
@@ -7,7 +6,7 @@ from django.contrib.auth import models, authenticate, get_user_model, login as a
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_http_methods
 
-from .forms import SignUpForm,UpdateUserForm
+from .forms import SignUpForm, CustomUserChangeForm
 
 @require_http_methods(['GET', 'POST'])
 def login(request):
@@ -33,7 +32,7 @@ def signup(request):
     #    return HttpResponseRedirect(reverse('shop:index'))
     if request.method == 'GET':
         form = SignUpForm()
-        return render(request, 'user/signup.html', {'form':form})
+        return render(request, 'user/signup.html', {'form': form})
     elif request.method == 'POST':
             form = SignUpForm(request.POST)
             if form.is_valid():

@@ -1,7 +1,7 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.conf import settings
 from django.contrib.auth.models import User as auth_user
-from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
@@ -27,7 +27,7 @@ class UserManager(BaseUserManager):
         extra_fields.setdefault('is_superuser', False)
         return self._create_user(email, username, password, **extra_fields)
 
-    def create_superuser(self, email, username='', password=None, **extra_fields):
+    def create_superuser(self, email, username, password, **extra_fields):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
 
@@ -39,9 +39,8 @@ class UserManager(BaseUserManager):
         return self._create_user(email, username, password, **extra_fields)
 
 class User(AbstractUser):
-    email = models.EmailField(unique=True, max_length=255, verbose_name="이메일")
-    username = models.CharField(blank=True, max_length=255, verbose_name="이름")
-    #password = models.CharField(blank=True, max_length=255, verbose_name="비밀번호")
+    email = models.EmailField(unique=True, null=False, max_length=255, verbose_name="이메일")
+    username = models.CharField(unique=True, null=False, max_length=20, verbose_name="이름")
     phone_number = models.CharField(blank=True, max_length=255, verbose_name="핸드폰")
     address = models.CharField(blank=True, max_length=255, verbose_name="주소")
     gender = models.CharField(blank=True, choices=GENDER_CHOICES, max_length=255)
@@ -50,26 +49,14 @@ class User(AbstractUser):
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
 
+    #data_joined = models.DateTimeField(verbose_name="date_joined", auto_now_add=True, default='')
+    #last_login = models.DateTimeField(verbose_name="last_login", auto_now=True, default='')
+
     objects = UserManager()
 
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
+    USERNAME_FIELD = 'email' #email로 구분
+    REQUIRED_FIELDS = ['username']
 
     def __str__(self):
         return self.email
 
-    def has_perm(self, perm, obj=None):
-        "Does the user have a specific permission?"
-        # Simplest possible answer: Yes, always
-        return True
-
-    def has_module_perms(self, app_label):
-        "Does the user have permissions to view the app `app_label`?"
-        # Simplest possible answer: Yes, always
-        return True
-
-    @property
-    def is_staff(self):
-        "Is the user a member of staff?"
-        # Simplest possible answer: All admins are staff
-        return self.is_superuser
