@@ -59,13 +59,15 @@ def profile(request, pk):
 
 @login_required
 def update(request, pk):
+    context=''
     if request.method == 'GET':
-        form = CustomUserChangeForm()
+        form = CustomUserChangeForm(instance=request.user)
     elif request.method == 'POST':
-        form = CustomUserChangeForm(request.POST)
+        form = CustomUserChangeForm(request.POST, instance=request.user)
         if form.is_valid():
             form.save()
-    return render(request, 'user/update.html', {'form': form})
+            context='업데이트 성공'
+    return render(request, 'user/update.html', {'form': form, 'context': context})
 
 @login_required
 def delete(request, pk):
