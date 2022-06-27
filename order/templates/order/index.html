@@ -4,17 +4,33 @@
     <a class="navbar-brand" href="{% url 'shop:index' %}"><img src="{% static 'images/로고.png' %}"></a>
 </div>
 
-<h1> 주문내역 </h1>
-{% if order %}
-    {% for item in order %}>
-    <div class="col-sm-4 col-lg-2"z>
-        <div class="caption">
-            <h2> {{ item.product.name }}</h2>
-            <span><h4>수량: {{ item.quantity }}</h4></span>
-            <span><h4>가격: {{ item.quantity|mul:item.price }}</h4></span>
-        </div>
+<h1 style="color: purple;"> {{ request.user.username }}'s orders </h1>
+{% if orders %}
+    <div class="col-12 col-sm-12 col-md-12 col-lg-6 text-center">
+        {% for order in orders %}
+        <table class="table my_custom_table">
+            <tbody>
+                <tr>
+                {% for item in order.get_order_items %}
+
+                    <td>
+                        <img src="{{ item.product.get_product_image }}" alt="" class="float-left rounded custom_image" style="width: auto; height: 150px;">
+                    </td>
+                    <td class="text-left">
+                        <h3>{{ item.product.name }}</h3>
+                        Quantity: {{ item.quantity }}
+                        <br>
+                        Price: {{ item.get_total }}
+                    </td>
+                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                {% endfor %}
+                </tr>
+            </tbody>
+            <hr/>
+        </table>
+        <h2>total price: {{ order.get_order_total }}</h2>
+        {% endfor %}
     </div>
-    {% endfor %}
 {% else %}
 <h3>You don't order</h3>
 {% endif %}

@@ -20,6 +20,11 @@ class Product(models.Model):
     def __str__(self):
         return self.name
 
+    @property
+    def get_product_image(self):
+        image = self.productimage_set.get(product=self, is_represent=True)
+        return image.image.url
+
 
 def product_image_path(instance, filename):
     return '{}'.format(filename)
