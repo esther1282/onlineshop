@@ -11,7 +11,7 @@ class Product(models.Model):
     name = models.CharField(max_length=100)
     content = models.TextField(max_length=1000)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    quantity = models.PositiveIntegerField()
+    stock = models.PositiveIntegerField()
     price = models.FloatField()
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)

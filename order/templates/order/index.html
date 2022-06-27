@@ -1,10 +1,9 @@
-{% load mathfilters %}
 {% load static %}
 <div class="navbar-header">
     <a class="navbar-brand" href="{% url 'shop:index' %}"><img src="{% static 'images/로고.png' %}"></a>
 </div>
 
-<h1 style="color: purple;"> {{ request.user.username }}'s orders </h1>
+<h1 style="color: purple;"> {{ request.user.username }}의 주문내역 </h1>
 {% if orders %}
     <div class="col-12 col-sm-12 col-md-12 col-lg-6 text-center">
         {% for order in orders %}
@@ -34,3 +33,4 @@
 {% else %}
 <h3>You don't order</h3>
 {% endif %}
+

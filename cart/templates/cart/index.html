@@ -1,2 +1,33 @@
-{#장바구니 <h1>{{ user_id }}</h1>#}
-Cart
+{% load static %}
+<div class="navbar-header">
+    <a class="navbar-brand" href="{% url 'shop:index' %}"><img src="{% static 'images/로고.png' %}"></a>
+</div>
+
+<h1 style="color: purple;"> {{ request.user.username }}의 장바구니 </h1>
+{% if cart %}
+<div class="col-12 col-sm-12 col-md-12 col-lg-6 text-center">
+        <table class="table my_custom_table">
+            <tbody>
+            {% for item in cart.get_cart_items %}
+                <tr>
+                    <td>
+                        <img src="{{ item.product.get_product_image }}" alt="" class="float-left rounded custom_image" style="width: auto; height: 150px;">
+                    </td>
+                    <td class="text-left">
+                        <h3>{{ item.product.name }}</h3>
+                        Quantity: {{ item.quantity }}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <br><br>
+    <button onclick='location.href="{% url 'order:create_cart' %}"'>주문</button>
+{% else %}
+<h3>담은 상품이 없습니다.</h3>
+{% endif %}
+
+{% if error_message %}
+    <h1 style="color:red;"><strong>{{ error_message }}</strong></h1>
+{% endif %}
