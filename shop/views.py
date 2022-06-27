@@ -4,6 +4,7 @@ from django import forms
 
 def index(request):
     all_products = Product.objects.all()
+
     user = request.user
 
     if request.user.is_authenticated is False:
