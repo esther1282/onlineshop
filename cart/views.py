@@ -33,3 +33,31 @@ def addCart(request, product_id):
         )
         cart_item.save()
     return redirect('cart:index')
+
+
+def plusCart(request, product_id):
+    product = get_object_or_404(Product, pk=product_id)
+    cart = Cart.objects.get(user=request.user)
+    cart_item = CartItem.objects.get(product=product, cart=cart)
+    cart_item.quantity += 1
+    cart_item.save()
+    return redirect('cart:index')
+
+
+def minusCart(request, product_id):
+    product = get_object_or_404(Product, pk=product_id)
+    cart = Cart.objects.get(user=request.user)
+    cart_item = CartItem.objects.get(product=product, cart=cart)
+    if cart_item.quantity > 1 :
+        cart_item.quantity -= 1
+        cart_item.save()
+    return redirect('cart:index')
+
+
+def deleteCart(request, product_id):
+    product = get_object_or_404(Product, pk=product_id)
+    cart = Cart.objects.get(user=request.user)
+    cart_item = CartItem.objects.get(product=product, cart=cart)
+    cart_item.delete()
+    return redirect('cart:index')
+

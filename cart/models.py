@@ -15,6 +15,14 @@ class Cart(models.Model) :
     def get_active_items(self):
         return self.cartitem_set.filter(cart=self, active=True)
 
+    @property
+    def get_cart_total(self):
+        cartitems = self.get_active_items
+        total = 0
+        for item in cartitems:
+            total += item.get_sub.total
+        return total
+
 class CartItem(models.Model) :
     product = models.ForeignKey('shop.Product', on_delete=models.CASCADE)
     quantity = models.IntegerField(default=1)
@@ -23,3 +31,7 @@ class CartItem(models.Model) :
 
     def __str__(self):
         return self.cart.user.username+"_"+self.product.name
+
+    @property
+    def get_sub_total(self):
+        return self.quantity * self.product.price

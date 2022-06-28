@@ -4,6 +4,6 @@ from . import views
 app_name = "order"
 urlpatterns=[
     path('', views.index, name='index'),
-    path('create/<int:product_id>', views.create, name='create'),
-    path('create/cart', views.create_cart, name='create_cart'),
+    path('<int:product_id>/', views.order_product, name='order_product'),
+    path('cart/', views.order_cart, name='order_cart'),
 ]

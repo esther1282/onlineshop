@@ -13,11 +13,11 @@ class ProductAdminForm(forms.ModelForm):
         model = Product
         exclude = ('deleted_at', )
 
-    def clean_quantity(self):
-        quantity = self.cleaned_data['quantity']
-        if quantity<0 or quantity>999:
-            raise forms.ValidationError("quantity: only 0 ~ 999")
-        return quantity
+    def clean_stock(self):
+        stock = self.cleaned_data['stock']
+        if stock<0 or stock>999:
+            raise forms.ValidationError("stock: only 0 ~ 999")
+        return stock
 
     def clean_price(self):
         price = self.cleaned_data['price']
@@ -38,22 +38,28 @@ class ProductAdmin(admin.ModelAdmin):
             return ProductAdminForm
 
     def add_view(self, request, form_url='', extra_context=None):
-        try:
-            extra_context = extra_context or {}
-            extra_context['form'] = self.get_form(request)
-            return super(ProductAdmin, self).add_view(request, form_url=form_url, extra_context=extra_context)
-        except ValidationError as e:
-            return handle_exception(self, request, e)
+        extra_context = extra_context or {}
+        extra_context['form'] = self.get_form(request)
+        return super(ProductAdmin, self).add_view(request, form_url=form_url, extra_context=extra_context)
+
+    def change_view(self, request, object_id, form_url="", extra_context=None):
+        extra_context = extra_context or {}
+        post = Product.objects.get(id=object_id)
+        extra_context["form"] = self.get_form(instance=post, request=request)
+        return super(ProductAdmin, self).change_view(request, object_id, form_url=form_url, extra_context=extra_context)
 
     def save_model(self, request, obj, form, change):
-        obj.save()
-        images = request.FILES.getlist('images')
-        for image in images:
-            if ProductImage.objects.filter(product=obj).exists():
-                ProductImage.objects.create(product=obj, image=image)
-            else:
-                ProductImage.objects.create(product=obj, image=image, is_represent=True)
-        return super().save_model(request, obj, form, change)
+        try:
+            obj.save()
+            images = request.FILES.getlist('images')
+            for image in images:
+                if ProductImage.objects.filter(product=obj).exists():
+                    ProductImage.objects.create(product=obj, image=image)
+                else:
+                    ProductImage.objects.create(product=obj, image=image, is_represent=True)
+            return super().save_model(request, obj, form, change)
+        except:
+            raise forms.ValidationError("Here")
 
 
 class ProductImageAdminForm(forms.ModelForm):

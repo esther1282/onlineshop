@@ -1,4 +1,6 @@
 {% load static %}
+<script src="https://kit.fontawesome.com/42209b930c.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="{% static 'css/cart/custom.css' %}">
 <div class="navbar-header">
     <a class="navbar-brand" href="{% url 'shop:index' %}"><img src="{% static 'images/로고.png' %}"></a>
 </div>
@@ -11,11 +13,20 @@
             {% for item in cart.get_cart_items %}
                 <tr>
                     <td>
-                        <img src="{{ item.product.get_product_image }}" alt="" class="float-left rounded custom_image" style="width: auto; height: 150px;">
+                        <img src="{{ item.product.get_product_image }}" alt="" class="float-left" style="width: auto; height: 150px;">
                     </td>
                     <td class="text-left">
                         <h3>{{ item.product.name }}</h3>
-                        Quantity: {{ item.quantity }}
+                        Quantity: {{ item.quantity }}<br>
+                        Sub Price: {{ item.get_sub_total }}
+                    </td>
+                    <td>
+                        <a href="{% url 'cart:plus_cart' item.product.id %}" class="custom_a">
+                            <i class="fas fa-plus-circle custom_icon"></i></a>&nbsp;
+                        <a href="{% url 'cart:minus_cart' item.product.id %}" class="custom_a">
+                            <i class="fas fa-minus-circle custom_icon"></i></a>&nbsp;
+                        <a href="{% url 'cart:delete_cart' item.product.id %}"  class="custom_a">
+                            <i class="fas fa-trash-alt custom_icon"></i></a>
                     </td>
                 </tr>
             {% endfor %}
@@ -23,7 +34,7 @@
         </table>
     </div>
     <br><br>
-    <button onclick='location.href="{% url 'order:create_cart' %}"'>주문</button>
+    <button onclick='location.href="{% url 'order:order_cart' %}"'>주문</button>
 {% else %}
 <h3>담은 상품이 없습니다.</h3>
 {% endif %}

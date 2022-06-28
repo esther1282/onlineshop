@@ -66,7 +66,7 @@ def update(request, pk):
         form = CustomUserChangeForm(request.POST, instance=request.user)
         if form.is_valid():
             form.save()
-            context='업데이트 성공'
+            return render(request, 'user/profile.html')
     return render(request, 'user/update.html', {'form': form, 'context': context})
 
 @login_required

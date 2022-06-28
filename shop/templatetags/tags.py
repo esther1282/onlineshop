@@ -1,6 +1,5 @@
 from django import template
-#from shop.models import ProductImage
-from django.shortcuts import get_object_or_404
+from random import choice
 from ..models import ProductImage
 register = template.Library()
 
@@ -10,4 +9,6 @@ def image_tag(value):
         product_image = ProductImage.objects.get(product=value, is_represent=True)
         return product_image.image.url
     except:
-        return "#"
+        random_image = choice(ProductImage.objects.filter(product=value))
+        return random_image.image.url
+

@@ -1,5 +1,6 @@
 from datetime import datetime
 from django.db import models
+from random import choice
 
 class Category(models.Model):
     title = models.CharField(max_length=150)
@@ -22,9 +23,12 @@ class Product(models.Model):
 
     @property
     def get_product_image(self):
-        image = self.productimage_set.get(product=self, is_represent=True)
-        return image.image.url
-
+        try:
+            image = self.productimage_set.get(product=self, is_represent=True)
+            return image.image.url
+        except:
+            random_image = choice(ProductImage.objects.filter(product=self))
+            return random_image.image.url
 
 def product_image_path(instance, filename):
     return '{}'.format(filename)

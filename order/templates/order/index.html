@@ -19,7 +19,7 @@
                         <h3>{{ item.product.name }}</h3>
                         Quantity: {{ item.quantity }}
                         <br>
-                        Price: {{ item.get_total }}
+                        Price: {{ item.get_total|floatformat }}
                     </td>
                     <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
                 {% endfor %}
@@ -27,7 +27,7 @@
             </tbody>
             <hr/>
         </table>
-        <h2>total price: {{ order.get_order_total }}</h2>
+        <h2>total price: {{ order.get_order_total|floatformat }}</h2>
         {% endfor %}
     </div>
 {% else %}
