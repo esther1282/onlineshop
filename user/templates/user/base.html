@@ -7,6 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{% static 'css/user/main.css' %}">
     <title>{% block title %}{% endblock %}OnlineShop</title>
+    <div class="navbar-header">
+    <a class="navbar-brand" href="{% url 'shop:index' %}"><img src="{% static 'images/로고.png' %}"></a>
+    </div>
 </head>
 <body>
     <div class="content">
