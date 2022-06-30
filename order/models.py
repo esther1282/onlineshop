@@ -7,6 +7,8 @@ class Order(models.Model):
     complete = models.BooleanField(default=False)
 
     def __str__(self):
+        if not self.user:
+            return "Anonymous"
         return self.user.username+"_"+str(self.pk)
 
     @property
