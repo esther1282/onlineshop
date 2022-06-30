@@ -1,4 +1,7 @@
 {% load static %}
+<div class="navbar-header">
+    <a class="navbar-brand" href="{% url 'shop:index' %}"><img src="{% static 'images/로고.png' %}"></a>
+</div>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,23 +26,26 @@
                     </td>
                 </tr>
             {% endfor %}
-            <h2>Total Price : {{ cart.get_cart_total|floatformat }}</h2>
             </tbody>
         </table>
     </div>
+    <h2>=======================> Total Price : {{ cart.get_cart_total|floatformat }}</h2>
 
     <div class="auth">
-    <form action="{% url 'user:update' user.pk %}" method="post">
-        {% csrf_token %}
-        {% for field in form %}
-            {{ field.errors }}
-            {{ field.label }}
-            {{ field }}
-        {% endfor %}
-        <input type="submit" value="업데이트">
-        {{ context }}
-    </form>
+        <p><b>**주문자 정보**</b></p>
+        <form action="{% url 'order:order_cart' %}" method="post">
+            {% csrf_token %}
+            {% for field in form %}
+                {{ field.errors }}
+                {{ field.label }}
+                {{ field }}
+            {% endfor %}
+            <input type="submit" value="업데이트">
+            {{ context }}
+        </form>
     </div>
+
+    <button onclick='location.href="{% url 'order:order_final' %}"'>주문</button>
 
 </body>
 </html>
