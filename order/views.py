@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from shop.models import Product, ProductImage
-from .models import Order, OrderItem
+from .models import Order, OrderItem, OrderUser
+from .forms import OrderUserChangeForm
 from user.forms import CustomUserChangeForm
 from cart.models import Cart
 
@@ -20,11 +21,12 @@ def order_cart(request):
 
     #user 정보 입력
     if request.method == 'GET':
-        form = CustomUserChangeForm(instance=user)
+        form = OrderUserChangeForm(instance=user)
     elif request.method == 'POST':
-        form = CustomUserChangeForm(request.POST, instance=user)
+        form = OrderUserChangeForm(request.POST, instance=user)
         if form.is_valid():
             form.save()
+            return redirect('order:order_final')
 
     return render(request, 'order/detail.html', {'cart':cart, 'form': form, 'user': user})
 
@@ -37,6 +39,7 @@ def order_final(request): #실제 계산
         OrderItem.objects.create(product=item.product, order=order, quantity=item.quantity)
         item.product.stock -= item.quantity
         item.product.save()
+
     cart.get_active_items.delete()
     return redirect('order:index')
 

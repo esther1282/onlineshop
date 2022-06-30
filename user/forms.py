@@ -21,4 +21,3 @@ class CustomUserChangeForm(UserChangeForm):
     class Meta:
         model = User
         fields = ['username', 'gender', 'phone_number', 'address']
-

@@ -40,12 +40,9 @@
                 {{ field.label }}
                 {{ field }}
             {% endfor %}
-            <input type="submit" value="업데이트">
-            {{ context }}
+            <input type="submit" value="결제하기">
+
         </form>
     </div>
-
-    <button onclick='location.href="{% url 'order:order_final' %}"'>주문</button>
-
 </body>
 </html>
