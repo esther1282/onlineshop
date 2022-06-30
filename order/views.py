@@ -9,6 +9,7 @@ def index(request):
     return render(request, 'order/index.html', {'orders': orders})
 
 def order_cart(request):
+<<<<<<< HEAD
     user = request.user
     order = empty_order(request)
     cart = Cart.objects.get(user=request.user)
@@ -32,10 +33,20 @@ def order_detail(request): #user정보 입력받도록 하기
 
     cart = Cart.objects.get(user=request.user)
 
+=======
+    cart = Cart.objects.get(user=request.user)
+    if cart.get_active_items.count() == 0:
+        return render(request, 'cart/index.html', {'cart': cart,'error_message': "주문 가능한 상품이 없습니다"})
+    for item in cart.get_active_items:
+        if item.product.stock - item.quantity < 0:
+            return render(request, 'cart/index.html', {'cart': cart, 'error_message': item.product.name+"의 재고가 없습니다"})
+    order = empty_order(request)
+>>>>>>> 57e54542fa03625a7a1bbaeed7dbe7085ff999da
     for item in cart.get_active_items:
         OrderItem.objects.create(product=item.product, order=order, quantity=item.quantity)
         item.product.stock -= item.quantity
         item.product.save()
+    cart.get_active_items.delete()
     return redirect('order:index')
 
 def order_product(request, product_id):
