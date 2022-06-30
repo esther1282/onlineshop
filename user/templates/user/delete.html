@@ -1,1 +1,46 @@
-회원 탈퇴
+{% extends "user/base.html" %}
+{% block title %}
+UserDelete
+{% endblock title %}
+
+{% block content %}
+    <div class="auth">
+    <form method="POST" >
+    {% csrf_token %}
+    <p><small><strong>{{ user.username }}</strong>회원님의 계정이 삭제됩니다.<br>본인인증을 위해 비밀번호를 입력해주세요.</small></p>
+    <div>
+        <label name="label_password" for="{{ password_form.password.id_for_label }}">{{ password_form.password.label }}</label>
+        {{ password_form.password }}
+        {% if password_form.password.errors %}
+            <script type="text/javascript">
+                document.getElementsByName('password')[0].setAttribute('class', 'form-control is-invalid')
+            </script>
+            {% for error in password_form.password.errors %}
+                <div class="invalid-feedback">
+                    <small>{{ error }}</small>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    <label>
+        <input type="checkbox" name="ck" onClick="checkDisable(this.form)">
+        <span>유의사항 동의</span>
+    </label>
+
+    <button type="submit" name="bt" disabled="true" >탈퇴하기</button>
+    </form>
+
+        <script type="text/javascript">
+            function checkDisable(form) {
+                if (form.ck.checked == true) {
+                    form.bt.disabled = false;
+                } else {
+                    form.bt.disabled = true;
+                }
+            }
+        </script>
+    </form>
+    </div>
+
+{% endblock content %}

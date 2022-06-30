@@ -6,7 +6,7 @@ from django.contrib.auth import models, authenticate, get_user_model, login as a
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_http_methods
 
-from .forms import SignUpForm, CustomUserChangeForm
+from .forms import SignUpForm, CustomUserChangeForm, CheckPasswordForm
 
 @require_http_methods(['GET', 'POST'])
 def login(request):
@@ -69,7 +69,17 @@ def update(request, pk):
             return render(request, 'user/profile.html')
     return render(request, 'user/update.html', {'form': form, 'context': context})
 
+@require_http_methods(['GET', 'POST'])
 @login_required
 def delete(request, pk):
+    if request.method == 'POST':
+        password_form = CheckPasswordForm(request.user, request.POST)
 
-    return render(request, 'user/delete.html')
+        if password_form.is_valid():
+            request.user.delete()
+            auth_logout(request)
+            return HttpResponseRedirect(reverse('shop:index'))
+    else:
+        password_form = CheckPasswordForm(request.user)
+
+    return render(request, 'user/delete.html', {'password_form':password_form})
