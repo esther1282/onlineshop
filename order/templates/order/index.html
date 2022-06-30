@@ -7,7 +7,7 @@
 {% if orders %}
     <div class="col-12 col-sm-12 col-md-12 col-lg-6 text-center">
         {% for order in orders %}
-        <hr/><h3>{{ order.date_ordered }}</h3>
+        <hr/><h3>{{ order.date_ordered | date:"Y-m-d H:i" }}</h3>
         <table class="table my_custom_table">
             <tbody>
                 <tr>

@@ -6,7 +6,7 @@ from user.forms import CustomUserChangeForm
 from cart.models import Cart
 
 def index(request):
-    orders = Order.objects.filter(user=request.user)
+    orders = Order.objects.filter(user=request.user).order_by('-date_ordered')
     return render(request, 'order/index.html', {'orders': orders})
 
 def order_cart(request):
