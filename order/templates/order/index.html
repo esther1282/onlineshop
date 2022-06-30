@@ -7,11 +7,11 @@
 {% if orders %}
     <div class="col-12 col-sm-12 col-md-12 col-lg-6 text-center">
         {% for order in orders %}
+        <hr/><h3>{{ order.date_ordered }}</h3>
         <table class="table my_custom_table">
             <tbody>
                 <tr>
                 {% for item in order.get_order_items %}
-
                     <td>
                         <img src="{{ item.product.get_product_image }}" alt="" class="float-left rounded custom_image" style="width: auto; height: 150px;">
                     </td>
@@ -25,7 +25,6 @@
                 {% endfor %}
                 </tr>
             </tbody>
-            <hr/>
         </table>
         <h2>total price: {{ order.get_order_total|floatformat }}</h2>
         {% endfor %}

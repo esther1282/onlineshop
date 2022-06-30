@@ -8,6 +8,18 @@ def index(request):
     except Cart.DoesNotExist:
         cart = Cart.objects.create(user=request.user)
         cart.save()
+
+    if request.method == 'POST':
+        active_list = request.POST.getlist('active_check')
+        cartItems = CartItem.objects.all()
+        for item in cartItems:
+            if str(item.pk) in active_list:
+                item.active = True
+                item.save()
+            else:
+                item.active = False
+                item.save()
+
     return render(request, 'cart/index.html', {'cart': cart})
 
 
