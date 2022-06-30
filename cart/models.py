@@ -20,7 +20,7 @@ class Cart(models.Model) :
         cartitems = self.get_active_items
         total = 0
         for item in cartitems:
-            total += item.get_sub.total
+            total += item.get_sub_total
         return total
 
 class CartItem(models.Model) :

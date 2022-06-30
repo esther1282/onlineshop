@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/user/main.css' %}">
+    <title>Order detail</title>
+</head>
+<body>
+    <h1 style="color: purple;"> {{ user.username }}의 주문 </h1>
+    <div class="col-12 col-sm-12 col-md-12 col-lg-6 text-center">
+        <table class="table my_custom_table">
+            <tbody>
+            {% for item in cart.get_cart_items %}
+                <tr>
+                    <td>
+                        <img src="{{ item.product.get_product_image }}" alt="" class="float-left" style="width: auto; height: 150px;">
+                    </td>
+                    <td class="text-left">
+                        <h3>{{ item.product.name }}</h3>
+                        Quantity: {{ item.quantity }}<br>
+                        Sub Price: {{ item.get_sub_total }}
+                    </td>
+                </tr>
+            {% endfor %}
+            <h2>Total Price : {{ cart.get_cart_total|floatformat }}</h2>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="auth">
+    <form action="{% url 'user:update' user.pk %}" method="post">
+        {% csrf_token %}
+        {% for field in form %}
+            {{ field.errors }}
+            {{ field.label }}
+            {{ field }}
+        {% endfor %}
+        <input type="submit" value="업데이트">
+        {{ context }}
+    </form>
+    </div>
+
+</body>
+</html>
