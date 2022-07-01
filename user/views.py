@@ -2,11 +2,11 @@ from django.views import View
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django.http import HttpResponseRedirect
-from django.contrib.auth import models, authenticate, get_user_model, login as auth_login, logout as auth_logout
+from django.contrib.auth import models, authenticate, get_user_model, login as auth_login, logout as auth_logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_http_methods
-
-from .forms import SignUpForm, CustomUserChangeForm, CheckPasswordForm
+from django.contrib import messages
+from .forms import SignUpForm, CustomUserChangeForm, CheckPasswordForm, CustomPasswordChangeForm
 
 @require_http_methods(['GET', 'POST'])
 def login(request):
@@ -83,3 +83,21 @@ def delete(request, pk):
         password_form = CheckPasswordForm(request.user)
 
     return render(request, 'user/delete.html', {'password_form':password_form})
+
+@require_http_methods(['GET', 'POST'])
+@login_required
+def change_pw(request, pk):
+    context=''
+    if request.method == 'POST':
+        password_form = CustomPasswordChangeForm(request.user, request.POST)
+
+        if password_form.is_valid():
+            user = password_form.save()
+            update_session_auth_hash(request, user)
+            messages.success(request, '비밀번호를 성공적으로 변경하였습니다.')
+            return render(request, 'user/profile.html')
+    else:
+        password_form = CustomPasswordChangeForm(request.user)
+
+    return render(request, 'user/change_pw.html', {'form':password_form})
+
