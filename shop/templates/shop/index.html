@@ -23,7 +23,11 @@ Shop
                 {% cycle '' '' '' '' '' '<div class="clearfix visible-lg"></div>' %}
             {% endfor %}
             {% else %}
-                <h3>검색하신 상품은 존재하지 않습니다.</h3>
+                {% if query %}
+                <h3> '{{ query }}'에 대한 상품은 존재하지 않습니다. </h3>
+                {% else %}
+                <h3>등록된 상품이 없습니다.</h3>
+                {% endif %}
             {% endif %}
         </div>
     </div>
