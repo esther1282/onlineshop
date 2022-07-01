@@ -1,10 +1,11 @@
 {% extends "shop/base.html" %}
 {% load tags %}
 {% block title %}
-Shop
+Category
 {% endblock title %}
+
 {% block content %}
-    <div class="goods-container container-fluid">
+<div class="goods-container container-fluid">
 
         <div class="row">
             {% if all_products %}
@@ -23,7 +24,7 @@ Shop
                 {% cycle '' '' '' '' '' '<div class="clearfix visible-lg"></div>' %}
             {% endfor %}
             {% else %}
-                <h3>검색하신 상품은 존재하지 않습니다.</h3>
+                <h3>You don't have any products</h3>
             {% endif %}
         </div>
     </div>

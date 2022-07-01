@@ -6,7 +6,7 @@
 </div>
 
 <h1 style="color: purple;"> {{ request.user.username }}의 장바구니 </h1>
-{% if cart %}
+{% ifnotequal cart.get_cart_items.count 0 %}
 <div class="col-12 col-sm-12 col-md-12 col-lg-6 text-center">
     <form action="{% url 'cart:index' %}" method="POST">
         {% csrf_token %}
@@ -51,7 +51,7 @@
 <button onclick='location.href="{% url 'order:order_cart' %}"'>주문하러 가기</button>
 {% else %}
 <h3>담은 상품이 없습니다.</h3>
-{% endif %}
+{% endifnotequal %}
 
 {% if error_message %}
     <h1 style="color:red;"><strong>{{ error_message }}</strong></h1>

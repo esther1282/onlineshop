@@ -1,0 +1,68 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/cart/custom.css' %}">
+<nav class="navbar navbar-expand-lg bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'shop:index' %}"><img src="{% static 'images/로고.png' %}" style="width: auto; height: 40px;"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'shop:index' %}">Home</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Category
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="{% url 'shop:category' 1 %}">T-shirt</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="{% url 'shop:category' 2 %}">Pants</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="{% url 'shop:category' 3 %}">Accessory</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <form class="d-flex" role="search" method="get" action="{% url 'shop:index' %}">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="q" value="{{ request.GET.q }}">
+                <button class="btn btn-secondary" type="submit">Search</button>
+            </form>
+            <ul class="nav navbar-nav navbar-right">
+                {% if user.is_authenticated %}
+                <li class="">
+                    <a href="{% url 'user:profile' user.pk %}">
+                        <i class="fa-solid fa-xl fa-user custom_icon"></i>
+                    </a>
+                </li>
+                <li class="">
+                    <a href="{% url 'order:index' %}">
+                        <i class="fa-solid fa-xl fa-truck custom_icon"></i>
+                    </a>
+                </li>
+                <li class="">
+                    <a href="{% url 'cart:index' %}">
+                        <i class="fa-solid fa-xl fa-cart-shopping custom_icon"></i>
+                    </a>
+                </li>
+                <li class="">
+                    <a href="{% url 'user:logout' %}">
+                        <i class="fa-solid fa-xl fa-power-off custom_icon"></i>
+                    </a>
+                </li>
+                {% else %}
+                <li class="">
+                    <a href="{% url 'user:signup' %}">
+                        <i class="fa-solid fa-user-plus fa-xl custom_icon"></i> Signup
+                    </a>
+                </li>
+                <li class="">
+                    <a href="{% url 'user:login' %}">
+                        <i class="fa-solid fa-right-from-bracket fa-xl custom_icon"></i> Login
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>

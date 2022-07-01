@@ -47,9 +47,6 @@ def logout(request):
     auth_logout(request)
     return HttpResponseRedirect('/')
 @login_required
-def mybag(request):
-    return render(request, 'user/mybag.html')
-@login_required
 def profile(request, pk):
     user = get_object_or_404(get_user_model(), pk=pk)
     context = {
