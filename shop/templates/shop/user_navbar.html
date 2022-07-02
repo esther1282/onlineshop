@@ -1,0 +1,38 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/cart/custom.css' %}">
+<nav class="navbar navbar-expand-lg bg-light">
+    <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="nav navbar-nav navbar-right">
+                {% if user.is_authenticated %}
+                <li class="">
+                    <a href="{% url 'user:profile' user.pk %}">
+                        <i class="fa-solid fa-xl fa-user custom_icon"></i>
+                    </a>
+                </li>
+                <li class="">
+                    <a href="{% url 'order:index' %}">
+                        <i class="fa-solid fa-xl fa-truck custom_icon"></i>
+                    </a>
+                </li>
+                <li class="">
+                    <a href="{% url 'user:logout' %}">
+                        <i class="fa-solid fa-xl fa-power-off custom_icon"></i>
+                    </a>
+                </li>
+                {% else %}
+                <li class="">
+                    <a href="{% url 'user:signup' %}">
+                        <i class="fa-solid fa-user-plus fa-xl custom_icon"></i> Signup
+                    </a>
+                </li>
+                <li class="">
+                    <a href="{% url 'user:login' %}">
+                        <i class="fa-solid fa-right-from-bracket fa-xl custom_icon"></i> Login
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
