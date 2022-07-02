@@ -1,7 +1,7 @@
 from django.db import models
 
 class Order(models.Model):
-    user = models.ForeignKey('user.User', on_delete=models.SET_NULL, null=True)
+    user = models.ForeignKey('user.User', on_delete=models.CASCADE, null=True)
     date_ordered = models.DateTimeField(auto_now_add=True)
     shipping = models.FloatField(default=3)
     complete = models.BooleanField(default=False)
@@ -25,7 +25,7 @@ class Order(models.Model):
 
 
 class OrderItem(models.Model):
-    product = models.ForeignKey('shop.Product', on_delete=models.DO_NOTHING, null=True)
+    product = models.ForeignKey('shop.Product', on_delete=models.CASCADE, null=True)
     quantity = models.IntegerField(default=0)
     order = models.ForeignKey(Order, on_delete=models.CASCADE, null=True)
     date_added = models.DateTimeField(auto_now_add=True)

@@ -14,8 +14,8 @@
     <div class="col-12 col-sm-12 col-md-12 col-lg-6 text-center">
         <table class="table my_custom_table">
             <tbody>
-            {% for item in cart.get_active_items %}
                 <tr>
+                {% for item in cart.get_active_items %}
                     <td>
                         <img src="{{ item.product.get_product_image }}" alt="" class="float-left" style="width: auto; height: 150px;">
                     </td>
@@ -24,8 +24,8 @@
                         Quantity: {{ item.quantity }}<br>
                         Sub Price: {{ item.get_sub_total }}
                     </td>
+                {% endfor %}
                 </tr>
-            {% endfor %}
             </tbody>
         </table>
     </div>
