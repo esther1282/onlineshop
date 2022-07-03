@@ -109,7 +109,7 @@
                     quantity = response.all_item[each].quantity;
                     sub_price = AddComma(response.all_item[each].each_price * quantity);
                     $("#quantity_"+response.all_item[each].id).html("Quantity: "+quantity);
-                    $("#price_"+response.all_item[each].id).html("Quantity: "+sub_price+"원");
+                    $("#price_"+response.all_item[each].id).html("Sub Price: "+sub_price+"원");
                 }
             },
             error: function(request, status, error){
@@ -129,7 +129,7 @@
                     quantity = response.all_item[each].quantity;
                     sub_price = AddComma(response.all_item[each].each_price * quantity);
                     $("#quantity_"+response.all_item[each].id).html("Quantity: "+quantity);
-                    $("#price_"+response.all_item[each].id).html("Quantity: "+sub_price+"원");
+                    $("#price_"+response.all_item[each].id).html("Sub Price: "+sub_price+"원");
                 }
             },
             error: function(request, status, error){
