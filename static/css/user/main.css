@@ -2,14 +2,17 @@ body {
     background-color: #fafafa;
     display: flex;
     flex-direction: column;
+    margin: 0;
+    min-height: 100vh;
 }
 
 .content {
-    margin-top: 170px;
+    margin-top: 10px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: 50px;
 }
 
 /* auth */
@@ -57,29 +60,5 @@ footer {
     flex-direction: row;
     justify-content: space-around;
     flex-wrap: warp;
-}
-
-footer .list {
-    margin: auto;
-}
-
-footer ul {
-    display: flex;
-    flex-direction: row;
-    list-style: none;
-}
-
-footer ul li {
-    margin: 10px;
-}
-
-footer ul li a {
-    color: #00376b;
-    text-decoration: none;
-    font-family: 'Noto Sans KR', sans-serif;
-}
-
-footer .company {
-    margin: auto;
-    font-family: 'Roboto', sans-serif;
+    flex-grow: 0;
 }

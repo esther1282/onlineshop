@@ -9,18 +9,17 @@ Profile
         <h1>마이페이지</h1><br><br>
         <p>이메일주소 : {{ user.email }}</p>
         <p>회원이름 : {{ user.username }}</p>
-        <p>비밀번호 : <button onclick='location.href="{% url 'user:change_pw' user.pk %}"'>변경</button></p>
         <p>성별 : {{ user.gender }}</p>
         <p>핸드폰번호 : {{ user.phone_number }}</p>
         <p>주소 : {{ user.address }}</p>
         </div>
     <br><br>
-    <ul>
-        <button onclick='location.href="{% url 'user:update' user.pk %}"'>회원정보수정</button>
-    </ul>
+
     <ul>
         {% csrf_token %}
+        <button onclick='location.href="{% url 'user:update' user.pk %}"'>유저정보수정</button>
         <button onclick='location.href="{% url 'user:delete' user.pk %}"'>회원탈퇴</button>
+        <button onclick='location.href="{% url 'user:change_pw' user.pk %}"'>패스워드 변경</button>
     </ul>
 
 {% endblock content %}
