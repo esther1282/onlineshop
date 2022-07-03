@@ -1,15 +1,8 @@
-{% load static %}
-<div class="navbar-header">
-    <a class="navbar-brand" href="{% url 'shop:index' %}"><img src="{% static 'images/로고.png' %}"></a>
-</div>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/user/main.css' %}">
-    <title>Order detail</title>
-</head>
-<body>
+{% extends "order/base.html" %}
+{% block title %}
+Order_Form
+{% endblock title %}
+{% block content %}
     <h1 style="color: purple;"> {{ user.username }}의 주문 </h1>
     <div class="col-12 col-sm-12 col-md-12 col-lg-6 text-center">
         <table class="table my_custom_table">
@@ -44,5 +37,4 @@
 
         </form>
     </div>
-</body>
-</html>
+{% endblock content %}

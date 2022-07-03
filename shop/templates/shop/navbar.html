@@ -11,6 +11,10 @@
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="q" value="{{ request.GET.q }}">
                 <button class="btn btn-secondary" type="submit">Search</button>
             </form>
+            <a href="{% url 'cart:index' %}">
+                <i class="fa-solid fa-2xl fa-cart-shopping custom_icon"></i>
+            </a>
         </div>
+
     </div>
 </nav>

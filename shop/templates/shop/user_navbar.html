@@ -1,24 +1,18 @@
 {% load static %}
-<link rel="stylesheet" href="{% static 'css/cart/custom.css' %}">
+<link rel="stylesheet" href="{% static 'css/shop/base.css' %}">
 <nav class="navbar navbar-expand-lg bg-light">
     <div class="container-fluid">
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="nav navbar-nav navbar-right">
                 {% if user.is_authenticated %}
                 <li class="">
-                    <a href="{% url 'user:profile' user.pk %}">
-                        <i class="fa-solid fa-xl fa-user custom_icon"></i>
-                    </a>
+                    <a class="mypage" href="{% url 'user:profile' user.pk %}"> 마이페이지 </a>
                 </li>
                 <li class="">
-                    <a href="{% url 'order:index' %}">
-                        <i class="fa-solid fa-xl fa-truck custom_icon"></i>
-                    </a>
+                    <a class="mypage" href="{% url 'order:index' %}"> 주문내역 </a>
                 </li>
                 <li class="">
-                    <a href="{% url 'user:logout' %}">
-                        <i class="fa-solid fa-xl fa-power-off custom_icon"></i>
-                    </a>
+                    <a class="mypage" href="{% url 'user:logout' %}"> 로그아웃 </a>
                 </li>
                 {% else %}
                 <li class="">

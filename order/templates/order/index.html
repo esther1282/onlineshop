@@ -1,8 +1,8 @@
-{% load static %}
-<div class="navbar-header">
-    <a class="navbar-brand" href="{% url 'shop:index' %}"><img src="{% static 'images/로고.png' %}"></a>
-</div>
-
+{% extends "order/base.html" %}
+{% block title %}
+Order
+{% endblock title %}
+{% block content %}
 <h1 style="color: purple;"> {{ request.user.username }}의 주문내역 </h1>
 {% if orders %}
     <div class="col-12 col-sm-12 col-md-12 col-lg-6 text-center">
@@ -15,13 +15,12 @@
                     <td>
                         <img src="{{ item.product.get_product_image }}" alt="" class="float-left rounded custom_image" style="width: auto; height: 150px;">
                     </td>
-                    <td class="text-left">
+                    <td class="text-left"><br>
                         <h3>{{ item.product.name }}</h3>
                         Quantity: {{ item.quantity }}
                         <br>
                         Price: {{ item.get_total|floatformat }}
                     </td>
-                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
                 {% endfor %}
                 </tr>
             </tbody>
@@ -32,4 +31,4 @@
 {% else %}
 <h3>You don't order</h3>
 {% endif %}
-
+{% endblock content %}
