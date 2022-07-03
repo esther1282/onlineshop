@@ -4,6 +4,7 @@ from .models import Cart, CartItem
 from django.http import JsonResponse
 from django.http import HttpResponse
 import json
+from django.core import serializers
 
 
 def index(request):
@@ -43,6 +44,7 @@ def addCart(request, product_id):
         # 처음 장바구니에 넣는 상품
         cart_item = CartItem.objects.create(
             product=product,
+            each_price=product.price,
             quantity=1,  # 원하는 수량 (일단은 1)
             cart=cart,
             active=True

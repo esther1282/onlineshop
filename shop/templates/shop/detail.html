@@ -1,12 +1,10 @@
 {% extends "shop/base.html" %}
+{% load humanize %}
 {% block title %}
 Detail
 {% endblock title %}
 
 {% block content %}
-{#    <div class="navbar-header">#}
-{#        <a class="navbar-brand" href="{% url 'shop:index' %}"><h1>GOTROOT goods site </h1></a>#}
-{#    </div>#}
     <h1> [ {{ product.category}} ] {{ product.name }}</h1>
         <div>
         {% for image in product_images %}
@@ -14,7 +12,7 @@ Detail
         {% endfor %}
         </div>
     <h3> Description: {{ product.content }}</h3>
-    <h3> Price: {{ product.price }}</h3>
+    <h3> Price: {{ product.price|intcomma }}원</h3>
     <h3> Stock: {{ product.stock }}</h3>
     {% if user.is_authenticated %}
         <button onclick='location.href="{% url 'cart:add_cart' product.id %}"'>장바구니</button>

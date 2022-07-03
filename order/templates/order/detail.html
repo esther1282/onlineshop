@@ -1,4 +1,5 @@
 {% extends "order/base.html" %}
+{% load humanize %}
 {% block title %}
 Order_Form
 {% endblock title %}
@@ -15,14 +16,14 @@ Order_Form
                     <td class="text-left">
                         <h3>{{ item.product.name }}</h3>
                         Quantity: {{ item.quantity }}<br>
-                        Sub Price: {{ item.get_sub_total }}
+                        Sub Price: {{ item.get_sub_total|intcomma }}원
                     </td>
                 {% endfor %}
                 </tr>
             </tbody>
         </table>
     </div>
-    <h2>=======================> Total Price : {{ cart.get_cart_total|floatformat }}</h2>
+    <h2>=======================> Total Price : {{ cart.get_cart_total|intcomma }}원</h2>
 
     <div class="auth">
         <p><b>**주문자 정보**</b></p>

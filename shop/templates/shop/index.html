@@ -1,5 +1,6 @@
 {% extends "shop/base.html" %}
 {% load tags %}
+{% load humanize %}
 {% block title %}
 Shop
 {% endblock title %}
@@ -16,7 +17,7 @@ Shop
                         </a>
                         <div class="caption">
                             <h2>{{ product.name }}</h2>
-                            <h4>{{ product.price }}원</h4>
+                            <h4>{{ product.price|intcomma }}원</h4>
                         </div>
                     </div>
                 </div>

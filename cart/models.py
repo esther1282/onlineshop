@@ -27,6 +27,7 @@ class Cart(models.Model) :
 
 class CartItem(models.Model) :
     product = models.ForeignKey('shop.Product', on_delete=models.CASCADE)
+    each_price = models.IntegerField(default=0)
     quantity = models.IntegerField(default=1)
     active = models.BooleanField(default=True)
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
@@ -36,4 +37,4 @@ class CartItem(models.Model) :
 
     @property
     def get_sub_total(self):
-        return self.quantity * self.product.price
+        return self.quantity * self.each_price
