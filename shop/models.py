@@ -13,7 +13,7 @@ class Product(models.Model):
     content = models.TextField(max_length=1000)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     stock = models.PositiveIntegerField()
-    price = models.FloatField()
+    price = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
     deleted_at = models.DateTimeField(null=True, blank=True)

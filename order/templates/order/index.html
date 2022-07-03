@@ -17,15 +17,15 @@ Order
                     </td>
                     <td class="text-left"><br>
                         <h3>{{ item.product.name }}</h3>
-                        Quantity: {{ item.quantity }}
+                        Quantity: {{ item.quantity }}개g
                         <br>
-                        Price: {{ item.get_total|floatformat }}
+                        Price: {{ item.get_total }}원
                     </td>
                 {% endfor %}
                 </tr>
             </tbody>
         </table>
-        <h2>total price: {{ order.get_order_total|floatformat }}</h2>
+        <h2>total price: {{ order.get_order_total }}원</h2>
         {% endfor %}
     </div>
 {% else %}
