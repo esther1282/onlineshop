@@ -38,13 +38,3 @@ def category(request, category_id):
         user.username = ' '
 
     return render(request, 'shop/index.html', {'all_products': category_products, 'user':user})
-
-def search(request):
-    category = Category.objects.get(pk=category_id)
-    category_products = Product.objects.filter(category=category)
-
-    user = request.user
-    if request.user.is_authenticated is False:
-        user.username = ' '
-
-    return render(request, 'shop/index.html', {'all_products': category_products, 'user':user})

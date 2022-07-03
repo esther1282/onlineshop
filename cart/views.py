@@ -1,6 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from shop.models import Product
 from .models import Cart, CartItem
+from django.http import JsonResponse
+from django.http import HttpResponse
+import json
+
 
 def index(request):
     try:
@@ -47,23 +51,33 @@ def addCart(request, product_id):
     return redirect('cart:index')
 
 
-def plusCart(request, product_id):
-    product = get_object_or_404(Product, pk=product_id)
-    cart = Cart.objects.get(user=request.user)
-    cart_item = CartItem.objects.get(product=product, cart=cart)
-    cart_item.quantity += 1
-    cart_item.save()
-    return redirect('cart:index')
+def plusCart(request):
+    if request.is_ajax and request.method == 'POST':
+        pk = request.POST.get('pk')
+        cartitem = CartItem.objects.get(pk=pk)
+        cartitem.quantity +=1
+        cartitem.save()
+
+        all_item = Cart.objects.get(user=request.user).get_cart_items.values()
+        context = {'all_item': list(all_item)}
+        return HttpResponse(json.dumps(context), content_type="application/json")
+    else:
+        return JsonResponse({'succes': False, 'errors': []}, status=400)
 
 
-def minusCart(request, product_id):
-    product = get_object_or_404(Product, pk=product_id)
-    cart = Cart.objects.get(user=request.user)
-    cart_item = CartItem.objects.get(product=product, cart=cart)
-    if cart_item.quantity > 1 :
-        cart_item.quantity -= 1
-        cart_item.save()
-    return redirect('cart:index')
+def minusCart(request):
+    if request.is_ajax and request.method == 'POST':
+        pk = request.POST.get('pk')
+        cartitem = CartItem.objects.get(pk=pk)
+        if cartitem.quantity > 1:
+            cartitem.quantity -= 1
+            cartitem.save()
+
+        all_item = Cart.objects.get(user=request.user).get_cart_items.values()
+        context = {'all_item': list(all_item)}
+        return HttpResponse(json.dumps(context), content_type="application/json")
+    else:
+        return JsonResponse({'succes': False, 'errors': []}, status=400)
 
 
 def deleteCart(request, product_id):
@@ -72,4 +86,25 @@ def deleteCart(request, product_id):
     cart_item = CartItem.objects.get(product=product, cart=cart)
     cart_item.delete()
     return redirect('cart:index')
+
+def activeItem(request):
+    if request.is_ajax and request.method == 'POST':
+        pk = request.POST.get('pk')
+        cartitem = CartItem.objects.get(pk=pk)
+        cartitem.active = True
+        cartitem.save()
+        return JsonResponse({'succes': True}, status=200)
+    else:
+        return JsonResponse({'succes': False, 'errors': []}, status=400)
+
+def disableItem(request):
+    if request.is_ajax and request.method == 'POST':
+        pk = request.POST.get('pk')
+        cartitem = CartItem.objects.get(pk=pk)
+        cartitem.active = False
+        cartitem.save()
+        return JsonResponse({'succes': True}, status=200)
+    else:
+        return JsonResponse({'succes': False, 'errors': []}, status=400)
+
 
