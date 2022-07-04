@@ -1,25 +1,95 @@
 {% extends "user/base.html" %}
-
+{% load static %}
 {% block title %}
 Profile
 {% endblock title %}
 
 {% block content %}
-    <div class="list">
-        <h1>마이페이지</h1><br><br>
-        <p>이메일주소 : {{ user.email }}</p>
-        <p>회원이름 : {{ user.username }}</p>
-        <p>성별 : {{ user.gender }}</p>
-        <p>핸드폰번호 : {{ user.phone_number }}</p>
-        <p>주소 : {{ user.address }}</p>
-        </div>
-    <br><br>
 
-    <ul>
-        {% csrf_token %}
+<h1 style="text-align: center; padding-bottom: 70px;">마이페이지</h1>
+
+<div class="container">
+<div class="row gutters">
+<div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+<div class="card h-100">
+	<div class="card-body">
+		<div class="account-settings">
+			<div class="user-profile">
+                <div class="user-avatar">
+					<img src="{% static "/images/user.png" %}" alt="User Image">
+				</div>
+				<h3 class="user-name">{{ user.username }}</h3>
+				<h3 class="user-email">{{ user.email }}</h3>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+<div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+<div class="card h-100">
+	<div class="card-body">
+        <form action="{% url 'user:profile' user.pk %}" method="post">
+            {% csrf_token %}
+		<div class="row gutters">
+
+			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+				<h6 class="mb-2 text-primary">Personal Details</h6>
+			</div>
+			<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+				<div class="form-group">
+					<label for="fullName">User Name</label>
+					<input type="text" class="form-control" id="fullName" value="{{ form.username.value }}" placeholder="Enter Username">
+				</div>
+			</div>
+			<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+				<div class="form-group">
+					<label for="eMail">Email</label>
+                    <input type="email" class="form-control" id="eMail" value="{{ user.email }}" disabled>
+				</div>
+			</div>
+			<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+				<div class="form-group">
+					<label for="phone">Phone</label>
+					<input type="text" class="form-control" id="phone" value="{{ form.phone_number.value }}" placeholder="Enter phone number">
+				</div>
+			</div>
+
+			<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+				<div class="form-group">
+					<label for="ciTy">Gender</label><br>
+					{{ form.gender }}
+				</div>
+			</div>
+		</div>
+		<div class="row gutters">
+			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+				<h6 class="mt-3 mb-2 text-primary">Address</h6>
+			</div>
+			<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+				<div class="form-group">
+					<label for="Street">Address</label>
+					<input type="name" class="form-control" id="Street" value="{{ form.address.value }}" placeholder="Enter Address">
+				</div>
+			</div>
+
+		</div>
+		<div class="row gutters">
+			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+				<div class="text-right">
+					<button type="button" class="btn btn-secondary" onclick='location.href="{% url 'shop:index' %}"'>Cancel</button>
+                    <input type="submit" class="btn btn-primary" value="Update">
+
         <button class="btn btn-primary" onclick='location.href="{% url 'user:update' user.pk %}"'>유저정보수정</button>
-        <button class="btn btn-primary" onclick='location.href="{% url 'user:delete' user.pk %}"'>회원탈퇴</button>
         <button class="btn btn-primary" onclick='location.href="{% url 'user:change_pw' user.pk %}"'>패스워드 변경</button>
-    </ul>
+        <button class="btn btn-primary" onclick='location.href="{% url 'user:delete' user.pk %}"'>회원탈퇴</button>
 
+				</div>
+			</div>
+		</div>
+        </form>
+	</div>
+</div>
+</div>
+</div>
+</div>
 {% endblock content %}

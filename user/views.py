@@ -48,11 +48,16 @@ def logout(request):
     return HttpResponseRedirect('/')
 @login_required
 def profile(request, pk):
-    user = get_object_or_404(get_user_model(), pk=pk)
-    context = {
-        'user': user
-    }
-    return render(request, 'user/profile.html', context)
+    #user = get_object_or_404(get_user_model(), pk=pk)
+    if request.method == 'GET':
+        form = CustomUserChangeForm(instance=request.user)
+    elif request.method == 'POST':
+        form = CustomUserChangeForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return render(request, 'user/profile.html', {'form':form})
+
+    return render(request, 'user/profile.html', {'form':form})
 
 @login_required
 def update(request, pk):
