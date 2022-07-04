@@ -46,16 +46,17 @@ def signup(request):
 def logout(request):
     auth_logout(request)
     return HttpResponseRedirect('/')
+
 @login_required
 def profile(request, pk):
-    #user = get_object_or_404(get_user_model(), pk=pk)
-    if request.method == 'GET':
-        form = CustomUserChangeForm(instance=request.user)
-    elif request.method == 'POST':
+    if request.method == 'POST':
         form = CustomUserChangeForm(request.POST, instance=request.user)
         if form.is_valid():
             form.save()
-            return render(request, 'user/profile.html', {'form':form})
+            messages.success(request, '업데이트 성공')
+            return HttpResponseRedirect(reverse('user:profile', args=[request.user.pk]))
+    else:
+        form = CustomUserChangeForm(instance=request.user)
 
     return render(request, 'user/profile.html', {'form':form})
 
@@ -68,7 +69,7 @@ def update(request, pk):
         form = CustomUserChangeForm(request.POST, instance=request.user)
         if form.is_valid():
             form.save()
-            return render(request, 'user/profile.html')
+            return render(request, 'user/profile.html', {'form':form})
     return render(request, 'user/update.html', {'form': form, 'context': context})
 
 @require_http_methods(['GET', 'POST'])
