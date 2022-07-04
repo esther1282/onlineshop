@@ -1,19 +1,25 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/cart/custom.css' %}">
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
 <nav class="navbar navbar-expand-lg">
-    <div class="container-fluid">
+    <div class="container-fluid" style="width: 1000px;">
         <a class="navbar-brand" href="{% url 'shop:index' %}"><img src="{% static 'images/로고.png' %}" style="width: auto; height: 40px;"></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <form class="d-flex" role="search" method="get" action="{% url 'shop:index' %}">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="q" value="{{ request.GET.q }}">
-                <button class="btn btn-secondary" type="submit">Search</button>
-            </form>
-            <a href="{% url 'cart:index' %}">
-                <i class="fa-solid fa-2xl fa-cart-shopping custom_icon"></i>
-            </a>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="">
+                   <form class="d-flex" role="search" method="get" action="{% url 'shop:index' %}">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="q" value="{{ request.GET.q }}">
+                    <button class="btn btn-secondary" type="submit">Search</button>
+                    </form>
+                </li>
+
+            </ul>
         </div>
 
     </div>

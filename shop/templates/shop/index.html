@@ -10,14 +10,14 @@ Shop
         <div class="row">
             {% if all_products %}
                 {% for product in all_products %}
-                <div class="col-sm-4 col-lg-2" style="float: left; width: 33%;">
+                <div class="col-sm-4 col-sm-2" style="float: left; width: 300px;">
                     <div class="thumbnail">
                         <a href="{% url 'shop:detail' product.pk %}">
                             <img src="{{ product|image_tag }}" class="img-fluid" style="width: auto; height: 300px;">
                         </a>
                         <div class="caption">
-                            <h2>{{ product.name }}</h2>
-                            <h4>{{ product.price|intcomma }}원</h4>
+                            <h4>{{ product.name }}</h4>
+                            <h5>{{ product.price|intcomma }}원</h5>
                         </div>
                     </div>
                 </div>

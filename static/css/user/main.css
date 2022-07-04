@@ -29,7 +29,7 @@ body {
     display: flex;
     flex-direction: column;
     align-self: center;
-    margin: auto;
+    padding: 150px;
 }
 
 .auth form input {

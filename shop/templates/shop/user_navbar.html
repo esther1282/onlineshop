@@ -1,10 +1,21 @@
 {% load static %}
-<link rel="stylesheet" href="{% static 'css/shop/base.css' %}">
+{#<link rel="stylesheet" href="{% static 'css/shop/base.css' %}">#}
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
 <nav class="navbar navbar-expand-lg bg-light">
     <div class="container-fluid">
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="nav navbar-nav navbar-right">
                 {% if user.is_authenticated %}
+
+                <li class="">
+                    <a href="{% url 'cart:index' %}">
+                        <i class="fa-solid fa-2xl fa-cart-shopping custom_icon"></i>
+                    </a>
+                </li>
+
                 <li class="">
                     <a class="mypage" href="{% url 'user:profile' user.pk %}"> 마이페이지 </a>
                 </li>
@@ -14,6 +25,8 @@
                 <li class="">
                     <a class="mypage" href="{% url 'user:logout' %}"> 로그아웃 </a>
                 </li>
+
+
                 {% else %}
                 <li class="">
                     <a href="{% url 'user:signup' %}">
@@ -25,6 +38,7 @@
                         <i class="fa-solid fa-right-from-bracket fa-xl custom_icon"></i> Login
                     </a>
                 </li>
+
                 {% endif %}
             </ul>
         </div>

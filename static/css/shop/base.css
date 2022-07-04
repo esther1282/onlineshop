@@ -10,3 +10,7 @@ a {
     border-radius: 0;
 }
 
+.container {
+  width: 1120px;
+  max-width: none !important;
+}

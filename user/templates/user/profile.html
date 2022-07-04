@@ -17,9 +17,9 @@ Profile
 
     <ul>
         {% csrf_token %}
-        <button onclick='location.href="{% url 'user:update' user.pk %}"'>유저정보수정</button>
-        <button onclick='location.href="{% url 'user:delete' user.pk %}"'>회원탈퇴</button>
-        <button onclick='location.href="{% url 'user:change_pw' user.pk %}"'>패스워드 변경</button>
+        <button class="btn btn-primary" onclick='location.href="{% url 'user:update' user.pk %}"'>유저정보수정</button>
+        <button class="btn btn-primary" onclick='location.href="{% url 'user:delete' user.pk %}"'>회원탈퇴</button>
+        <button class="btn btn-primary" onclick='location.href="{% url 'user:change_pw' user.pk %}"'>패스워드 변경</button>
     </ul>
 
 {% endblock content %}
