@@ -16,6 +16,23 @@
     {% block content %} {% endblock %}
 </div>
 
+{% for message in messages %}
+                <div class="alert {{ message.tags }} alert-auto-dismissible alert-dismissible notification-container text-center" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    {{ message }}
+                </div>
+{% endfor %}
+
+
+        <script type="text/javascript">
+            window.setTimeout(function() {
+                $(".alert-auto-dismissible").fadeTo(500, 0).slideUp(500, function(){
+                    $(this).remove();
+                });
+            }, 3000);
+        </script>
 {% include 'user/footer.html' %}
 </body>
 </html>

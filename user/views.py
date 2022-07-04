@@ -10,8 +10,6 @@ from .forms import SignUpForm, CustomUserChangeForm, CheckPasswordForm, CustomPa
 
 @require_http_methods(['GET', 'POST'])
 def login(request):
-    if request.user.is_authenticated:
-        return HttpResponseRedirect(reverse('shop:index'))
     if request.method == "POST":
         email = request.POST['email']
         password = request.POST['password']
@@ -19,36 +17,40 @@ def login(request):
 
         if user is not None:
             auth_login(request, user)
+            messages.success(request, '로그인 성공')
             return HttpResponseRedirect(reverse('shop:index'))
         else:
-            return render(request, 'user/login.html', {'context':'로그인 실패'})
+            messages.error(request, '로그인 실패')
+            return render(request, 'user/login.html')
     else:
         return render(request, 'user/login.html')
 
 @require_http_methods(['GET', 'POST'])
 def signup(request):
-    # 로그인되어있다면 회원가입 페이지 접근 막기
-    #if request.user.is_authenticated: 템플릿에서 적용하기
-    #    return HttpResponseRedirect(reverse('shop:index'))
-    if request.method == 'GET':
+
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            if user is not None:
+                auth_login(request, user)
+                messages.success(request, '회원 가입 성공')
+                return HttpResponseRedirect(reverse('shop:index'))
+        messages.error(request, '회원 가입 실패')
+    else:
         form = SignUpForm()
-        return render(request, 'user/signup.html', {'form': form})
-    elif request.method == 'POST':
-            form = SignUpForm(request.POST)
-            if form.is_valid():
-                user = form.save()
-                if user is not None:
-                    auth_login(request, user)
-                    return HttpResponseRedirect(reverse('shop:index'))
-            return render(request, 'user/signup.html', {'form': form})
+
+    return render(request, 'user/signup.html', {'form': form})
 
 @login_required
 def logout(request):
     auth_logout(request)
+    messages.success(request, '로그아웃 완료')
     return HttpResponseRedirect('/')
 
 @login_required
 def profile(request, pk):
+
     if request.method == 'POST':
         form = CustomUserChangeForm(request.POST, instance=request.user)
         if form.is_valid():
@@ -81,24 +83,24 @@ def delete(request, pk):
         if password_form.is_valid():
             request.user.delete()
             auth_logout(request)
+            messages.success(request, '회원 탈퇴 완료')
             return HttpResponseRedirect(reverse('shop:index'))
     else:
         password_form = CheckPasswordForm(request.user)
 
-    return render(request, 'user/delete.html', {'password_form':password_form})
+    return render(request, 'user/delete.html', {'form':password_form})
 
 @require_http_methods(['GET', 'POST'])
 @login_required
 def change_pw(request, pk):
-    context=''
     if request.method == 'POST':
         password_form = CustomPasswordChangeForm(request.user, request.POST)
 
         if password_form.is_valid():
             user = password_form.save()
             update_session_auth_hash(request, user)
-            messages.success(request, '비밀번호를 성공적으로 변경하였습니다.')
-            return render(request, 'user/profile.html')
+            messages.success(request, '비밀번호 변경 완료')
+            return HttpResponseRedirect(reverse('user:profile', args=[request.user.pk]))
     else:
         password_form = CustomPasswordChangeForm(request.user)
 

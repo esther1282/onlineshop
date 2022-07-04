@@ -4,25 +4,9 @@ Sign Up
 {% endblock title %}
 
 {% block content %}
-{##}
-{#<div class="auth">#}
-{#    <form action="{% url 'user:signup'%}" method="post">#}
-{#        {% csrf_token %}#}
-{#        {% for field in form %}#}
-{#            <div class="fieldWrapper">#}
-{#                {{ field.errors }}#}
-{#                {{ field.label }}#}
-{#                {{ field }}#}
-{#            </div>#}
-{#        {% endfor %}#}
-{#        <input type="submit" value="Sign up">#}
-{#    </form>#}
-{#</div>#}
-{##}
-{#<div class="auth_link">#}
-{#    <p><a href="{% url 'user:login' %}">로그인</a></p>#}
-{#</div>#}
-
+    {% if user.is_authenticated %}
+        <script>location.href='/';</script>
+    {% endif %}
 
 <section style="background-color: #ffffff;">
   <div class="container h-100">
@@ -42,6 +26,16 @@ Sign Up
                     <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                     <div class="form-outline flex-fill mb-0">
                       <input type="email" name="email" id="form3Example3c" class="form-control" placeholder="email" />
+                        {% if form.email.errors %}
+                            <script type="text/javascript">
+                                document.getElementsByName('email')[0].setAttribute('class', 'form-control is-invalid')
+                            </script>
+                            {% for error in form.email.errors %}
+                                <div class="invalid-feedback">
+                                    {{ error }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
                     </div>
                   </div>
 
@@ -49,6 +43,16 @@ Sign Up
                     <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                     <div class="form-outline flex-fill mb-0">
                       <input type="text" name="username" id="form3Example1c" class="form-control" placeholder="name" />
+                         {% if form.username.errors %}
+                            <script type="text/javascript">
+                                document.getElementsByName('username')[0].setAttribute('class', 'form-control is-invalid')
+                            </script>
+                            {% for error in form.username.errors %}
+                                <div class="invalid-feedback">
+                                    {{ error }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
                     </div>
                   </div>
 
@@ -56,6 +60,16 @@ Sign Up
                     <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
                     <div class="form-outline flex-fill mb-0">
                       <input type="password" name="password1" id="form3Example4c" class="form-control" placeholder="password"/>
+                        {% if form.password1.errors %}
+                            <script type="text/javascript">
+                                document.getElementsByName('password1')[0].setAttribute('class', 'form-control is-invalid')
+                            </script>
+                            {% for error in form.password1.errors %}
+                            <div class="invalid-feedback">
+                                {{ error }}
+                            </div>
+                            {% endfor %}
+                        {% endif %}
                     </div>
                   </div>
 
@@ -63,6 +77,16 @@ Sign Up
                     <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
                     <div class="form-outline flex-fill mb-0">
                       <input type="password" name="password2" id="form3Example4c" class="form-control" placeholder="password confirmation"/>
+                        {% if form.password2.errors %}
+                            <script type="text/javascript">
+                                document.getElementsByName('password2')[0].setAttribute('class', 'form-control is-invalid')
+                            </script>
+                            {% for error in form.password2.errors %}
+                            <div style="white-space: nowrap;" class="invalid-feedback">
+                                {{ error }}
+                            </div>
+                            {% endfor %}
+                        {% endif %}
                     </div>
                   </div>
 

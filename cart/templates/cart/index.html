@@ -14,12 +14,25 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 {% include 'shop/user_navbar.html' %}
 {% include 'shop/navbar.html' %}
+     <div class="" style="padding: 3em;">
+         <p class="menu-title">장바구니</p>
+     </div>
+
     <div class="content">
-        <h1 style="color: purple;"> {{ request.user.username }}의 장바구니 </h1>
         {% ifnotequal cart.get_cart_items.count 0 %}
-        <div class="col-12 col-sm-12 col-md-12 col-lg-6 text-center">
+        <div class="cart-custom text-center">
             {% csrf_token %}
             <table class="table my_custom_table">
+                <thead>
+                <tr>
+                    <th class="text-center"><input type="checkbox" onclick="return false;"></th>
+                    <th class="text-center" style="width: 17%;"></th>
+                    <th style="width: 35%;">상품정보</th>
+                    <th style="width: 10%;">수량</th>
+                    <th style="width: 10%;">가격</th>
+                    <th style="width: 13%;"></th>
+                </tr>
+                </thead>
                 <tbody>
                 {% for item in cart.get_cart_items %}
                     <tr>
@@ -28,28 +41,38 @@
                                 <input type="checkbox" name="active_check" value="{{ item.id }}" {% if item.active %}checked{% endif %}/>
                             </label>
                         </td>
-                        <td>
+                        <td style="width: 17%;">
                             <img src="{{ item.product.get_product_image }}" alt="" class="float-left" style="width: auto; height: 150px;">
                         </td>
-                        <td class="text-left"><br>
-                            <h3>{{ item.product.name }}</h3>
-                            <p id="quantity_{{ item.id }}">Quantity: {{ item.quantity }}</p>
-                            <p id="price_{{ item.id }}">Sub Price: {{ item.get_sub_total|intcomma }}원</p>
+                        <td class="text-left" style="width: 35%;"><br>
+                            <h3>{{ item.product.name }}</h3><br>
+                            <p>{{ item.product.content }}</p>
                         </td>
-                        <td>
+                        <td class="text-left" style="width: 10%;">
+                            <p id="quantity_{{ item.id }}">{{ item.quantity }}개</p>
+                        </td>
+                        <td class="text-left" style="width: 10%;">
+                            <p id="price_{{ item.id }}">{{ item.get_sub_total|intcomma }}원</p>
+                        </td>
+                        <td style="width: 13%">
                             <a class="btn custom_a" name="plus_item" value="{{ item.id }}">
-                                <i class="fas fa-plus-circle custom_icon"></i></a>&nbsp;
+                                <i class="fas fa-plus-circle custom_icon"></i></a>
                             <a class="btn custom_a" name="minus_item" value="{{ item.id }}">
-                                <i class="fas fa-minus-circle custom_icon"></i></a>&nbsp;
-                            <a href="{% url 'cart:delete_cart' item.product.id %}"  class="custom_a">
+                                <i class="fas fa-minus-circle custom_icon"></i></a>
+                            <a class="custom_a" href="{% url 'cart:delete_cart' item.product.id %}">
                                 <i class="fas fa-trash-alt custom_icon"></i></a>
                         </td>
                     </tr>
                 {% endfor %}
                 </tbody>
             </table>
+            <div class="confirm-custom">
+                <p align="left">결제금액</p>
+                <p class="menu-title">{{ cart.get_cart_total|intcomma }}원</p>
+                <p><button class="btn-order btn-block btn-outline-danger" onclick='location.href="{% url 'order:order_cart' %}"'>주문하러 가기</button></p>
+                <p><button class="btn-shopping btn-block" onclick='location.href="{% url 'shop:index' %}"'>쇼핑 계속하기</button></p>
+            </div>
         </div>
-        <button onclick='location.href="{% url 'order:order_cart' %}"'>주문하러 가기</button>
         {% else %}
         <h3>담은 상품이 없습니다.</h3>
         {% endifnotequal %}
@@ -58,7 +81,23 @@
             <h1 style="color:red;"><strong>{{ error_message }}</strong></h1>
         {% endif %}
     </div>
+{% for message in messages %}
+                <div class="alert {{ message.tags }} alert-auto-dismissible alert-dismissible notification-container text-center" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    {{ message }}
+                </div>
+{% endfor %}
 
+
+<script type="text/javascript">
+    window.setTimeout(function() {
+        $(".alert-auto-dismissible").fadeTo(500, 0).slideUp(500, function(){
+            $(this).remove();
+        });
+    }, 3000);
+</script>
 {% include 'user/footer.html' %}
 </body>
 <script>
@@ -110,8 +149,8 @@
                 for (each in response.all_item){
                     quantity = response.all_item[each].quantity;
                     sub_price = AddComma(response.all_item[each].each_price * quantity);
-                    $("#quantity_"+response.all_item[each].id).html("Quantity: "+quantity);
-                    $("#price_"+response.all_item[each].id).html("Sub Price: "+sub_price+"원");
+                    $("#quantity_"+response.all_item[each].id).html(quantity+"개");
+                    $("#price_"+response.all_item[each].id).html(sub_price+"원");
                 }
             },
             error: function(request, status, error){
@@ -130,8 +169,8 @@
                 for (each in response.all_item){
                     quantity = response.all_item[each].quantity;
                     sub_price = AddComma(response.all_item[each].each_price * quantity);
-                    $("#quantity_"+response.all_item[each].id).html("Quantity: "+quantity);
-                    $("#price_"+response.all_item[each].id).html("Sub Price: "+sub_price+"원");
+                    $("#quantity_"+response.all_item[each].id).html(quantity+"개");
+                    $("#price_"+response.all_item[each].id).html(sub_price+"원");
                 }
             },
             error: function(request, status, error){
