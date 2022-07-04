@@ -5,15 +5,9 @@ Log in
 {% endblock title %}
 
 {% block content %}
-{#<div class="auth">#}
-{#    <form action="{% url 'user:login' %}" method='post'>#}
-{#        {% csrf_token %}#}
-{#        <input type="input" name="email" placeholder="email">#}
-{#        <input type="password" name="password" placeholder="password">#}
-{#        <input type="submit" value="Login">#}
-{#        <p>{{ context }}</p>#}
-{#    </form>#}
-{#</div>#}
+    {% if user.is_authenticated %}
+        <script>location.href='/';</script>
+    {% endif %}
 <section style="background-color: #ffffff;">
   <div class="container h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
@@ -69,5 +63,4 @@ Log in
     </div>
   </div>
 </section>
-
 {% endblock content %}
