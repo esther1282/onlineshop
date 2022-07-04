@@ -49,6 +49,7 @@ def logout(request):
 
 @login_required
 def profile(request, pk):
+
     if request.method == 'POST':
         form = CustomUserChangeForm(request.POST, instance=request.user)
         if form.is_valid():
@@ -85,12 +86,11 @@ def delete(request, pk):
     else:
         password_form = CheckPasswordForm(request.user)
 
-    return render(request, 'user/delete.html', {'password_form':password_form})
+    return render(request, 'user/delete.html', {'form':password_form})
 
 @require_http_methods(['GET', 'POST'])
 @login_required
 def change_pw(request, pk):
-    context=''
     if request.method == 'POST':
         password_form = CustomPasswordChangeForm(request.user, request.POST)
 
@@ -98,7 +98,7 @@ def change_pw(request, pk):
             user = password_form.save()
             update_session_auth_hash(request, user)
             messages.success(request, '비밀번호를 성공적으로 변경하였습니다.')
-            return render(request, 'user/profile.html')
+            return HttpResponseRedirect(reverse('user:profile', args=[request.user.pk]))
     else:
         password_form = CustomPasswordChangeForm(request.user)
 

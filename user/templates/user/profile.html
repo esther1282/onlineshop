@@ -18,7 +18,7 @@ Profile
                 <div class="user-avatar">
 					<img src="{% static "/images/user.png" %}" alt="User Image">
 				</div>
-				<h3 class="user-name">{{ user.username }}</h3>
+				<h3 class="user-name">{{ user.username }}님</h3>
 				<h3 class="user-email">{{ user.email }}</h3>
 			</div>
 		</div>
@@ -75,13 +75,9 @@ Profile
 		</div>
 		<div class="row gutters">
 			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-				<div class="text-right">
-					<button type="button" class="btn btn-secondary" onclick='location.href="{% url 'shop:index' %}"'>Cancel</button>
-                    <input type="submit" class="btn btn-primary" value="Update">
-
-        <button class="btn btn-primary" onclick='location.href="{% url 'user:change_pw' user.pk %}"'>패스워드 변경</button>
-        <button class="btn btn-primary" onclick='location.href="{% url 'user:delete' user.pk %}"'>회원탈퇴</button>
-
+				<div class="float-end">
+					<button type="button" class="btn btn-secondary" onclick='location.href="{% url 'shop:index' %}"'>취소</button>
+                    <input type="submit" class="btn btn-primary" value="업데이트">
 				</div>
 			</div>
 		</div>
@@ -90,19 +86,10 @@ Profile
 </div>
 </div>
 </div>
+
+<button class="btn btn-primary" onclick='location.href="{% url 'user:change_pw' user.pk %}"'>비밀번호 변경</button>
+<button class="btn btn-primary" onclick='location.href="{% url 'user:delete' user.pk %}"'>회원탈퇴</button>
+
 </div>
-    {% if messages %}
-        {% for message in messages %}
-         {% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
-        {% endfor %}
-    {% endif %}
-    <script>
-        window.onpopstate = function(event) {
-            if (event) {
-                console.log('1');
-            } else {
-                console.log('2');
-            }
-        }
-    </script>
+
 {% endblock content %}

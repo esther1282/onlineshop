@@ -4,7 +4,8 @@ UserChangePW
 {% endblock title %}
 
 {% block content %}
-    <div class="content">
+    <h1 style="text-align: center; padding-bottom: 70px;">비밀번호 변경</h1>
+    <div class="container" style="width: 400px; padding: 50px; border: #d3d6d9 solid 1px; border-radius: 25px;">
         <form method="POST" novalidate>
         {% csrf_token %}
         <div>
@@ -63,8 +64,11 @@ UserChangePW
                 </div>
                 {% endfor %}
             {% endif %}
+        </div><br>
+        <div class="float-end">
+            <button type="button" class="btn btn-secondary" onclick='location.href="{% url 'user:profile' user.pk %}"'>취소</button>
+            <button type="submit" class="btn btn-primary" name="bt" style="background-color: #6498e7; border: none;">비밀번호 변경</button>
         </div>
-        <button type="submit" class="btn btn-primary">비밀번호 변경</button>
         </form>
     </div>
 
