@@ -5,12 +5,12 @@ Detail
 {% endblock title %}
 
 {% block content %}
-    <h1> [ {{ product.category}} ] {{ product.name }}</h1>
-        <div>
-        {% for image in product_images %}
-            <img src="{{ image.image.url }}" style="width: auto; height: 300px;">
-        {% endfor %}
-        </div>
+<div class="container detail-product">
+    <div>
+    {% for image in product_images %}
+        <img src="{{ image.image.url }}" style="width: auto; height: 300px;">
+    {% endfor %}
+    </div>
     <h3> Description: {{ product.content }}</h3>
     <h3> Price: {{ product.price|intcomma }}원</h3>
     <h3> Stock: {{ product.stock }}</h3>
@@ -22,4 +22,5 @@ Detail
     {% if error_message %}
         <h1 style="color:red;"><strong>{{ error_message }}</strong></h1>
     {% endif %}
+</div>
 {% endblock content %}

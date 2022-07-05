@@ -30,7 +30,7 @@
                     <th class="text-center" style="width: 17%;"></th>
                     <th style="width: 35%;">상품정보</th>
                     <th style="width: 20%;">수량</th>
-                    <th style="width: 10%;">가격</th>
+                    <th style="width: 15%;">가격</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -51,12 +51,12 @@
                         </td>
                         <td class="text-left" style="width: 20%;">
                             <p id="quantity_{{ item.id }}" style="display: inline;">{{ item.quantity }}개</p>
-                            <a class="btn custom_a" name="plus_item" value="{{ item.id }}">
+                            <a class="custom_a" name="plus_item" value="{{ item.id }}" style="padding: 0em 0.4em 0em 1.2em;">
                                 <i class="fas fa-plus-circle custom_icon"></i></a>
-                            <a class="btn custom_a" name="minus_item" value="{{ item.id }}">
+                            <a class="custom_a" name="minus_item" value="{{ item.id }}">
                                 <i class="fas fa-minus-circle custom_icon"></i></a>
                         </td>
-                        <td class="text-left" style="width: 10%;">
+                        <td class="text-left" style="width: 15%;">
                             <p id="price_{{ item.id }}">{{ item.get_sub_total|intcomma }}원</p>
                         </td>
                         <td>

@@ -43,3 +43,7 @@ a {
   width: 1120px;
   max-width: none !important;
 }
+
+div .detail-product{
+    padding: 10em;
+}
