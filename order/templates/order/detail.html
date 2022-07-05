@@ -70,7 +70,7 @@ Order_Form
               </tr>
               <tr>
                 <td colspan="2">배송비</td>
-                <td class="text-end">0원</td>
+                <td class="text-end">{{ cart.shipping }}원</td>
               </tr>
               <tr>
                 <td colspan="2">할인금액</td>
@@ -78,7 +78,7 @@ Order_Form
               </tr>
               <tr class="fw-bold">
                 <td colspan="2">결제금액</td>
-                <td class="text-end">{{ cart.get_cart_total|intcomma }}원</td>
+                <td class="text-end">{{ cart.get_cart_total|add:cart.shipping|intcomma }}원</td>
               </tr>
             </tfoot>
           </table>
@@ -147,7 +147,7 @@ Order_Form
       <!-- 결제 금액 -->
       <div class="card mb-4">
         <div class="card-body">
-            <h3 class="h6">결제금액</h3><h2 style="font-family: '나눔고딕 ExtraBold'">{{ cart.get_cart_total|intcomma }}원</h2>
+            <h3 class="h6">결제금액</h3><h2 style="font-family: '나눔고딕 ExtraBold'">{{ cart.get_cart_total|add:cart.shipping|intcomma }}원</h2>
         </div>
       </div>
       <div class="card mb-4">

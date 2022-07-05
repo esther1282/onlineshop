@@ -1,5 +1,6 @@
 {% extends "order/base.html" %}
 {% load humanize %}
+{% load mathfilters %}
 {% block title %}
 Order
 {% endblock title %}
@@ -26,7 +27,7 @@ Order
                 </tr>
             </tbody>
         </table>
-        <h2>total price: {{ order.get_order_total|intcomma }}원</h2>
+        <h2>total price: {{ order.get_order_total|add:order.shipping|intcomma }}원</h2>
         {% endfor %}
     </div>
 {% else %}

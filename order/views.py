@@ -32,7 +32,7 @@ def order_cart(request):
 
 def order_final(request): #실제 계산
     cart = Cart.objects.get(user=request.user)
-    order = empty_order(request)
+    order = empty_order(request, cart)
 
     # 찐 주문 동작
     for item in cart.get_active_items:
@@ -61,6 +61,6 @@ def order(request):
     return redirect('order:index')
 
 
-def empty_order(request):
-    order = Order.objects.create(user=request.user, shipping=3)
+def empty_order(request, cart):
+    order = Order.objects.create(user=request.user, shipping=cart.shipping)
     return order
