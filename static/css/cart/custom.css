@@ -67,3 +67,6 @@ div .cart-custom{
 .right-text {
   float: right;
 }
+body{
+    font-family: 'Century Gothic',sans-serif;
+}

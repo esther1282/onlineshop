@@ -5,9 +5,9 @@
 Shop
 {% endblock title %}
 {% block content %}
-    <div class="goods-container container-fluid">
+    <div class="goods-container container-fluid" style="font-family: 'Century Gothic'">
         <div class="menu">
-            <p class="menu-title">{% if category_name %}{{ category_name }}{% else %}GOTROOT{% endif %}
+            <p class="menu-title">{% if category_name %}{{ category_name }}{% else %}Category{% endif %}
             <ul class="nav justify-content-center nav-fill">
             {% for category in categories %}
                 <li class="nav-item">

@@ -5,8 +5,16 @@ Profile
 {% endblock title %}
 
 {% block content %}
-    <div class="" style="padding: 3em;">
+    <div class="" style="padding-bottom: 2em;">
          <p class="menu-title">마이페이지</p>
+        <ul class="nav justify-content-center">
+            <li class="nav-item">
+                <a href="{% url 'user:change_pw' user.pk %}"><b>비밀번호 변경</b></a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'user:delete' user.pk %}"><b>회원 탈퇴</b></a>
+            </li>
+        </ul>
     </div>
 
 <div class="container">
@@ -86,10 +94,6 @@ Profile
 </div>
 </div>
 </div>
-
-<button class="btn btn-primary" onclick='location.href="{% url 'user:change_pw' user.pk %}"'>비밀번호 변경</button>
-<button class="btn btn-primary" onclick='location.href="{% url 'user:delete' user.pk %}"'>회원탈퇴</button>
-
 </div>
 
 {% endblock content %}
