@@ -5,20 +5,45 @@ Detail
 {% endblock title %}
 
 {% block content %}
-<div class="container detail-product">
-    <div>
-    {% for image in product_images %}
-        <img src="{{ image.image.url }}" style="width: auto; height: 300px;">
-    {% endfor %}
-    </div>
-    <h3> Description: {{ product.content }}</h3>
-    <h3> Price: {{ product.price|intcomma }}원</h3>
-    <h3> Stock: {{ product.stock }}</h3>
-    {% if user.is_authenticated %}
-        <button onclick='location.href="{% url 'cart:add_cart' product.id %}"'>장바구니</button>
-    {% endif %}
-    <!--<button onclick='location.href="{% url 'order:order_product' product.id %}"'>주문</button>-->
+<script>
+    function changeImage(element) {
+        var main_product_image = document.getElementById('main_product_image');
+        main_product_image.src = element.src;
+    }
+</script>
 
+<div class="container mt-5 mb-5">
+    <div class="row g-0">
+        <div class="col-md-6 border-end">
+            <div class="d-flex flex-column justify-content-center">
+                <div class="main_image">
+                    <img src="{{ product.get_product_image }}" id="main_product_image" height="300">
+                </div>
+                <div class="thumbnail_images">
+                    <ul id="thumbnail">
+                        {% for image in product_images %}
+                        <li><img onclick="changeImage(this)" src="{{ image.image.url }}" height="60"></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="p-3 right-side">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h2><b>{{ product.name }}</b></h2>
+                </div>
+                <div class="mt-2 pr-3 content">
+                    <p>{{ product.content }}</p>
+                </div>
+                <h3>{{ product.price|intcomma }}원</h3>
+                <p>재고: {{ product.stock }}개</p>
+            </div>
+            {% if user.is_authenticated %}
+            <button class="btn-cart" onclick='location.href="{% url 'cart:add_cart' product.id %}"'>장바구니</button>
+            {% endif %}
+        </div>
+    </div>
     {% if error_message %}
         <h1 style="color:red;"><strong>{{ error_message }}</strong></h1>
     {% endif %}

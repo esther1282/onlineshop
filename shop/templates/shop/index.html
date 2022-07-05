@@ -6,16 +6,6 @@ Shop
 {% endblock title %}
 {% block content %}
     <div class="goods-container container-fluid">
-        <div class="menu">
-            <p class="menu-title">{% if category_name %}{{ category_name }}{% else %}GOTROOT{% endif %}
-            <ul class="nav justify-content-center nav-fill">
-            {% for category in categories %}
-                <li class="nav-item">
-                    <a class="nav-link {% ifequal category_name category.title %}active{% endifequal %}" href="{% url 'shop:category' category.id %}">{{ category.title }}</a></li>
-            {% endfor %}
-            </ul>
-        </div>
-
         <div class="row">
             {% if all_products %}
                 {% for product in all_products %}
