@@ -36,16 +36,12 @@ Order
                             <p><b>{{ order.get_order_total|intcomma }}원</b></p>
                         </div>
             </div>
-            <div class="row">
-                <div class="col d-flex"><p>배송비</p></div>
-                <div class="col d-flex justify-content-end"><p>{{ order.shipping|intcomma }}원</p></div>
-            </div>
         {% endfor %}
         <hr>
         <div class="total">
+            <div class="col d-flex"><p>배송비: {{ order.shipping|intcomma }}원</p></div>
             <div class="row">
-                <div class="col"> <b> Total:</b> </div>
-                <div class="col d-flex justify-content-end"> <b>{{ order.get_order_total|add:order.shipping|intcomma }}원</b> </div>
+                <div class="col d-flex justify-content-end"> <b>Total: {{ order.get_order_total|add:order.shipping|intcomma }}원</b> </div>
             </div>
         </div>
     </div>
