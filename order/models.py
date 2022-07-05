@@ -11,6 +11,9 @@ class Order(models.Model):
             return "Anonymous"
         return self.user.username+"_"+str(self.pk)
 
+    def get_order_number(self):
+        return str(self.pk)
+
     @property
     def get_order_total(self):
         orderitems = self.orderitem_set.all()

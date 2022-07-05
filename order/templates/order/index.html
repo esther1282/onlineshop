@@ -9,7 +9,7 @@ Order
 {% if orders %}
 {% for order in orders %}
 <div class="card mt-50 mb-50">
-    <div class="col d-flex"><span class="text-muted" id="orderno">order #546924</span></div>
+    <div class="col d-flex"><span class="text-muted" id="orderno">주문번호 #{{ order.get_order_number }}</span></div>
 
     <div class="title mx-auto"> Thank you for your order! </div>
     <div class="main"> <span id="sub-title">
@@ -45,6 +45,6 @@ Order
 </div>
 {% endfor %}
 {% else %}
-<h3>주문내역 없음</h3>
+<h3 style="text-align: center;">주문 내역이 없습니다.</h3>
 {% endif %}
 {% endblock content %}
