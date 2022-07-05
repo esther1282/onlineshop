@@ -3,7 +3,7 @@ from django.db import models
 class Order(models.Model):
     user = models.ForeignKey('user.User', on_delete=models.CASCADE, null=True)
     date_ordered = models.DateTimeField(auto_now_add=True)
-    shipping = models.FloatField(default=3)
+    shipping = models.IntegerField(default=3000)
     complete = models.BooleanField(default=False)
 
     def __str__(self):

@@ -1,5 +1,5 @@
 div .cart-custom{
-    padding: 0 5em;
+    padding: 0 0 0 5em;
     display: flex;
 }
 
@@ -48,4 +48,22 @@ div .cart-custom{
     border-radius: 10px;
     font-weight: bold;
     padding: 1em;
+}
+
+.total-price {
+    border: 1px solid;
+    border-radius: 13px;
+    background-color: #f5d682;
+    padding: 0.9em;
+}
+
+.btn-confirm{
+    padding: 1em 0em;
+}
+
+.left-text {
+  float: left;
+}
+.right-text {
+  float: right;
 }
