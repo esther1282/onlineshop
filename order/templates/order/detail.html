@@ -4,38 +4,167 @@
 Order_Form
 {% endblock title %}
 {% block content %}
-    <h1 style="color: purple;"> {{ user.username }}의 주문 </h1>
-    <div class="col-12 col-sm-12 col-md-12 col-lg-6 text-center">
-        <table class="table my_custom_table">
+
+<div class="container-fluid">
+
+<div class="container">
+  <!-- Title -->
+  <div class="d-flex justify-content-between align-items-center py-3">
+    <h3><strong>주문/결제</strong></h3>
+      <h5>장바구니 > <strong>주문/결제</strong> > 주문내역</h5>
+  </div>
+
+  <!-- Main content -->
+  <div class="row">
+    <div class="col-lg-8">
+      <!-- Details -->
+      <div class="card mb-4">
+        <div class="card-body">
+          <div class="mb-3 d-flex justify-content-between">
+            <div>
+              <span class="badge rounded-pill bg-info"> 주문 상품 정보 </span>
+            </div>
+              <div class="d-flex align-content-center">
+{#                  <span class="badge rounded-pill bg-secondary align-self-center">상품 수량</span>#}
+              </div>
+              <div class="d-flex align-content-end align-self-center">
+                  <span class="badge rounded-pill">상품 금액</span>
+              </div>
+            <!--<div class="d-flex">
+              <button class="btn btn-link p-0 me-3 d-none d-lg-block btn-icon-text"><i class="bi bi-download"></i> <span class="text">Invoice</span></button>
+              <div class="dropdown">
+                <button class="btn btn-link p-0 text-muted" type="button" data-bs-toggle="dropdown">
+                  <i class="bi bi-three-dots-vertical"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end">
+                  <li><a class="dropdown-item" href="#"><i class="bi bi-pencil"></i> Edit</a></li>
+                  <li><a class="dropdown-item" href="#"><i class="bi bi-printer"></i> Print</a></li>
+                </ul>
+              </div>
+            </div>-->
+          </div>
+          <table class="table table-borderless">
             <tbody>
-                <tr>
                 {% for item in cart.get_active_items %}
-                    <td>
-                        <img src="{{ item.product.get_product_image }}" alt="" class="float-left" style="width: auto; height: 150px;">
-                    </td>
-                    <td class="text-left">
-                        <h3>{{ item.product.name }}</h3>
-                        Quantity: {{ item.quantity }}<br>
-                        Sub Price: {{ item.get_sub_total|intcomma }}원
-                    </td>
+                    <tr>
+                        <td>
+                            <div class="d-flex mb-2">
+                                 <div class="flex-shrink-0">
+                                    <img src="{{ item.product.get_product_image }}" alt="" width="35" class="img-fluid">
+                                 </div>
+                                <div class="flex-lg-grow-1 ms-3">
+                                    <h6 class="small mb-0"><a href="#" class="text-reset">{{ item.product.name }}</a></h6>
+                                    <!--<span class="small">Color: Black</span>-->
+                                </div>
+                            </div>
+                        </td>
+                        <td class="text-center">{{ item.quantity }}개</td>
+                        <td class="text-end">{{ item.get_sub_total|intcomma }}원</td>
+                    </tr>
                 {% endfor %}
-                </tr>
             </tbody>
-        </table>
-    </div>
-    <h2>=======================> Total Price : {{ cart.get_cart_total|intcomma }}원</h2>
+            <tfoot>
+              <tr>
+                <td colspan="2">총 상품금액</td>
+                <td class="text-end">{{ cart.get_cart_total|intcomma }}원</td>
+              </tr>
+              <tr>
+                <td colspan="2">배송비</td>
+                <td class="text-end">0원</td>
+              </tr>
+              <tr>
+                <td colspan="2">할인금액</td>
+                <td class="text-danger text-end">- 0원</td>
+              </tr>
+              <tr class="fw-bold">
+                <td colspan="2">결제금액</td>
+                <td class="text-end">{{ cart.get_cart_total|intcomma }}원</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+      <!-- Payment -->
+      <div class="card mb-4">
+        <div class="card-body">
+              <form action="{% url 'order:order_cart' %}" method="post">
+                {% csrf_token %}
+                <div class="row gutters">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <span class="badge rounded-pill bg-info"> 주문자 </span>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                        <label for="fullName">User Name</label>
+                        <input type="text" name="username" class="form-control" id="fullName" value="{{ form.username.value }}" placeholder="Enter Username">
+                        {{ form.username.errors }}
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                        <label for="eMail">Email</label>
+                        <input type="email" class="form-control" id="eMail" value="{{ user.email }}" disabled>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                        <label for="phone">Phone</label>
+                        <input type="text" name="phone_number" class="form-control" id="phone" value="{{ form.phone_number.value }}" placeholder="Enter phone number">
+                        {{ form.phone_number.errors }}
+                    </div>
+                </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                        <label for="bill">Billing Card Number: </label><span class="badge bg-success rounded-pil bg-danger"> NOT registered</span>
+                        <input type="text" name="card_number" class="form-control" id="bill" value="">
+                        {{ form.card_number.errors }}
+                    </div>
+                </div>
+            </div>
+            <div class="row gutters">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                        <label for="Street">Address</label>
+                        <input type="name" name="address" class="form-control" id="Street" value="{{ form.address.value }}" placeholder="Enter Address">
+                        {{ form.address.errors }}
+                    </div>
+                </div>
+            </div>
+                  <div class="row gutters">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div class="float-end">
+                        <input type="submit" class="btn btn-primary" value="상품 주문하기">
+                    </div>
+                </div>
+		    </div>
+            </form>
 
-    <div class="auth">
-        <p><b>**주문자 정보**</b></p>
-        <form action="{% url 'order:order_cart' %}" method="post">
-            {% csrf_token %}
-            {% for field in form %}
-                {{ field.errors }}
-                {{ field.label }}
-                {{ field }}
-            {% endfor %}
-            <input type="submit" value="결제하기">
+          </div>
+        </div><!--card 끝 -->
+      </div>
 
-        </form>
+    <div class="col-lg-4">
+      <!-- 결제 금액 -->
+      <div class="card mb-4">
+        <div class="card-body">
+            <h3 class="h6">결제금액</h3><h2 style="font-family: '나눔고딕 ExtraBold'">{{ cart.get_cart_total|intcomma }}원</h2>
+        </div>
+      </div>
+      <div class="card mb-4">
+        <!-- Shipping information -->
+        <div class="card-body">
+          <h3 class="h6">요청사항</h3>
+            <input type="text" value="문앞에 두고 초인종 눌러주세요." style="width:100%">
+            <hr>
+          <h3 class="h6">문의하기</h3>
+          <span><a href="#" class="text-decoration-underline" target="_blank">02-111-2222</a> <i class="bi bi-box-arrow-up-right"></i> </span>
+          <address>서울특별시 구로구 구로동 170-10<br>
+            대륭포스트타워7차 305-P136호
+          </address>
+       </div>
+      </div>
     </div>
+</div>
+</div>
+</div>
 {% endblock content %}
