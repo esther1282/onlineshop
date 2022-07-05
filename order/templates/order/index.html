@@ -33,11 +33,12 @@ Order
                             <p>{{ item.quantity }}개</p>
                         </div>
                         <div class="col d-flex justify-content-end">
-                            <p><b>{{ order.get_order_total|add:order.shipping|intcomma }}원</b></p>
+                            <p><b>{{ order.get_order_total|intcomma }}원</b></p>
                         </div>
             </div>
             <div class="row">
-                <p>배송비 : {{ order.shipping|intcomma }}원</p>
+                <div class="col d-flex"><p>배송비</p></div>
+                <div class="col d-flex justify-content-end"><p>{{ order.shipping|intcomma }}원</p></div>
             </div>
         {% endfor %}
         <hr>
