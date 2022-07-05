@@ -6,8 +6,37 @@ a {
     color: black;
 }
 
+.menu-title{
+    font-size: 2.5em;
+    text-align: center;
+    color:#4D8EEF;
+    padding: 0.5em;
+    font-weight: bold ;
+}
+
 .navbar {
     border-radius: 0;
+}
+
+.menu {
+    padding: 1em 25em 5em;
+}
+
+.menu > .nav > .nav-item > .nav-link{
+    font-size: 1.2em;
+    color: #505050;
+}
+
+.menu > .nav > .nav-item > .nav-link.active{
+    font-size: 1.2em;
+    text-decoration-line: underline;
+    text-decoration-color: #4D8EEF;
+    color: #4D8EEF;
+    font-weight: bold;
+}
+
+.menu > .nav > .nav-item > a:hover {
+    background: none;
 }
 
 .container {

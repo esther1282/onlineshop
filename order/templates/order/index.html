@@ -1,35 +1,50 @@
 {% extends "order/base.html" %}
 {% load humanize %}
+{% load static %}
 {% block title %}
 Order
 {% endblock title %}
 {% block content %}
-<h1 style="color: purple;"> {{ request.user.username }}의 주문내역 </h1>
+<link rel="stylesheet" type="text/css" href="{% static 'css/order/ordercheck.css' %}">
 {% if orders %}
-    <div class="col-12 col-sm-12 col-md-12 col-lg-6 text-center">
-        {% for order in orders %}
-        <hr/><h3>{{ order.date_ordered | date:"Y-m-d H:i" }}</h3>
-        <table class="table my_custom_table">
-            <tbody>
-                <tr>
-                {% for item in order.get_order_items %}
-                    <td>
-                        <img src="{{ item.product.get_product_image }}" alt="" class="float-left rounded custom_image" style="width: auto; height: 150px;">
-                    </td>
-                    <td class="text-left"><br>
-                        <h3>{{ item.product.name }}</h3>
-                        Quantity: {{ item.quantity }}개
-                        <br>
-                        Price: {{ item.get_total|intcomma }}원
-                    </td>
-                {% endfor %}
-                </tr>
-            </tbody>
-        </table>
-        <h2>total price: {{ order.get_order_total|intcomma }}원</h2>
+{% for order in orders %}
+<div class="card mt-50 mb-50">
+    <div class="col d-flex"><span class="text-muted" id="orderno">order #546924</span></div>
+
+    <div class="title mx-auto"> Thank you for your order! </div>
+    <div class="main"> <span id="sub-title">
+        <p><b>결제 날짜</b></p>
+        <p>{{ order.date_ordered | date:"Y-m-d H:i" }}</p></span>
+        {% for item in order.get_order_items %}
+            <div class="row row-main">
+                        <div class="col-2"> <img class="img-fluid" src="{{ item.product.get_product_image }}"> </div>
+                        <div class="col">
+                            <div class="row d-flex">
+                                <p><b>{{ item.product.name }}</b></p>
+                            </div>
+                            <div class="row d-flex">
+                                <p class="text-muted">옵션 : </p>
+                            </div>
+                        </div>
+                        <div class="col d-flex justify-content-center">
+                            <p>{{ item.quantity }}개</p>
+                        </div>
+                        <div class="col d-flex justify-content-end">
+                            <p><b>{{ item.get_total|intcomma }}원</b></p>
+                        </div>
+            </div>
         {% endfor %}
+        <hr>
+        <div class="total">
+            <div class="row">
+                <div class="col"> <b> Total:</b> </div>
+                <div class="col d-flex justify-content-end"> <b>{{ order.get_order_total|intcomma }}원</b> </div>
+            </div>
+        </div>
     </div>
+</div>
+{% endfor %}
 {% else %}
-<h3>You don't order</h3>
+<h3>주문내역 없음</h3>
 {% endif %}
 {% endblock content %}
