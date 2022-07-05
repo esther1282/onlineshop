@@ -1,0 +1,102 @@
+
+body {
+    min-height: 100vh;
+    vertical-align: middle;
+    display: flex;
+    font-family: Muli;
+    font-size: 14px
+}
+
+.card {
+    margin: auto;
+    width: 400px;
+    max-width: 600px;
+    padding-bottom: 50px;
+    border-radius: 20px;
+}
+
+.mt-50{
+    margin-top:50px;
+}
+
+.mb-50{
+    margin-bottom:70px;
+}
+
+@media(max-width:767px) {
+    .card {
+        width: 80%
+    }
+}
+
+@media(height:1366px) {
+    .card {
+        width: 75%
+    }
+}
+
+#orderno {
+    padding: 1vh 2vh 0;
+    font-size: smaller
+}
+
+.gap .col-2 {
+    background-color: rgb(213, 217, 233);
+    width: 1.2rem;
+    padding: 1.2rem;
+    margin-top: -2.5rem;
+    border-radius: 1.2rem
+}
+
+.title {
+    display: flex;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+    padding: 12%
+}
+
+.main {
+    padding: 0 2rem
+}
+
+.main img {
+    border-radius: 7px
+}
+
+.main p {
+    margin-bottom: 0;
+    font-size: 1rem;
+}
+
+#sub-title p {
+    margin: 1vh 0 2vh 0;
+    font-size: 1.2rem
+}
+
+.row-main {
+    padding: 1.5vh 0;
+    align-items: center
+}
+.row-main p {
+    font-size: 1.2rem;
+}
+hr {
+    margin: 1rem -1vh;
+    border-top: 1px solid rgb(214, 214, 214)
+}
+
+.total {
+    font-size: 1.5rem;
+}
+
+@media(height: 1366px) {
+    .main p {
+        margin-bottom: 0;
+        font-size: 1.2rem
+    }
+
+    .total {
+        font-size: 1.5rem
+    }
+}
