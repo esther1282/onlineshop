@@ -13,18 +13,6 @@ def index(request):
     except Cart.DoesNotExist:
         cart = Cart.objects.create(user=request.user)
         cart.save()
-
-    if request.method == 'POST':
-        active_list = request.POST.getlist('active_check')
-        cartItems = CartItem.objects.all()
-        for item in cartItems:
-            if str(item.pk) in active_list:
-                item.active = True
-                item.save()
-            else:
-                item.active = False
-                item.save()
-
     return render(request, 'cart/index.html', {'cart': cart})
 
 
@@ -50,6 +38,9 @@ def addCart(request, product_id):
             active=True
         )
         cart_item.save()
+    if cart.get_cart_total >= 50000:
+        cart.shipping = 0
+        cart.save()
     return redirect('cart:index')
 
 
@@ -60,8 +51,13 @@ def plusCart(request):
         cartitem.quantity +=1
         cartitem.save()
 
-        all_item = Cart.objects.get(user=request.user).get_cart_items.values()
-        context = {'all_item': list(all_item)}
+        cart = Cart.objects.get(user=request.user)
+        cart_item = CartItem.objects.filter(pk=pk).values()
+        total_price = cart.get_cart_total
+        if total_price >= 50000:
+            cart.shipping = 0
+            cart.save()
+        context = {'cart_item': list(cart_item), 'total_price': total_price}
         return HttpResponse(json.dumps(context), content_type="application/json")
     else:
         return JsonResponse({'succes': False, 'errors': []}, status=400)
@@ -75,8 +71,13 @@ def minusCart(request):
             cartitem.quantity -= 1
             cartitem.save()
 
-        all_item = Cart.objects.get(user=request.user).get_cart_items.values()
-        context = {'all_item': list(all_item)}
+        cart = Cart.objects.get(user=request.user)
+        cart_item = CartItem.objects.filter(pk=pk).values()
+        total_price = cart.get_cart_total
+        if total_price < 50000:
+            cart.shipping = 3000
+            cart.save()
+        context = {'cart_item': list(cart_item), 'total_price': total_price}
         return HttpResponse(json.dumps(context), content_type="application/json")
     else:
         return JsonResponse({'succes': False, 'errors': []}, status=400)
@@ -95,7 +96,14 @@ def activeItem(request):
         cartitem = CartItem.objects.get(pk=pk)
         cartitem.active = True
         cartitem.save()
-        return JsonResponse({'succes': True}, status=200)
+
+        cart = Cart.objects.get(user=request.user)
+        total_price = cart.get_cart_total
+        if total_price >= 50000:
+            cart.shipping = 0
+            cart.save()
+        context = {'total_price': total_price}
+        return HttpResponse(json.dumps(context), content_type="application/json")
     else:
         return JsonResponse({'succes': False, 'errors': []}, status=400)
 
@@ -105,7 +113,14 @@ def disableItem(request):
         cartitem = CartItem.objects.get(pk=pk)
         cartitem.active = False
         cartitem.save()
-        return JsonResponse({'succes': True}, status=200)
+
+        cart = Cart.objects.get(user=request.user)
+        total_price = cart.get_cart_total
+        if total_price < 50000:
+            cart.shipping = 3000
+            cart.save()
+        context = {'total_price': total_price}
+        return HttpResponse(json.dumps(context), content_type="application/json")
     else:
         return JsonResponse({'succes': False, 'errors': []}, status=400)
 

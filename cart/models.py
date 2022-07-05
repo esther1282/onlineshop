@@ -3,6 +3,7 @@ from django.db import models
 class Cart(models.Model) :
     user = models.ForeignKey('user.User', on_delete=models.CASCADE, null=True)
     date_added = models.DateField(auto_now_add=True)
+    shipping = models.IntegerField(default=3000)
 
     def __str__(self):
         if not self.user:

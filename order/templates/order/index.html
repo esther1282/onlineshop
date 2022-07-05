@@ -1,9 +1,12 @@
 {% extends "order/base.html" %}
 {% load humanize %}
 {% load static %}
+{% load mathfilters %}
+
 {% block title %}
 Order
 {% endblock title %}
+
 {% block content %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/order/ordercheck.css' %}">
 {% if orders %}
@@ -30,15 +33,18 @@ Order
                             <p>{{ item.quantity }}개</p>
                         </div>
                         <div class="col d-flex justify-content-end">
-                            <p><b>{{ item.get_total|intcomma }}원</b></p>
+                            <p><b>{{ order.get_order_total|add:order.shipping|intcomma }}원</b></p>
                         </div>
+            </div>
+            <div class="row">
+                <p>배송비 : {{ order.shipping|intcomma }}원</p>
             </div>
         {% endfor %}
         <hr>
         <div class="total">
             <div class="row">
                 <div class="col"> <b> Total:</b> </div>
-                <div class="col d-flex justify-content-end"> <b>{{ order.get_order_total|intcomma }}원</b> </div>
+                <div class="col d-flex justify-content-end"> <b>{{ order.get_order_total|add:order.shipping|intcomma }}원</b> </div>
             </div>
         </div>
     </div>
