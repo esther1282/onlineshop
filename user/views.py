@@ -21,7 +21,7 @@ def login(request):
             return HttpResponseRedirect(reverse('shop:index'))
         else:
             messages.error(request, '로그인 실패')
-            return render(request, 'user/login.html')
+            return render(request, 'user/login.html', {'po_email': email})
     else:
         return render(request, 'user/login.html')
 
@@ -37,6 +37,7 @@ def signup(request):
                 messages.success(request, '회원 가입 성공')
                 return HttpResponseRedirect(reverse('shop:index'))
         messages.error(request, '회원 가입 실패')
+        return render(request, 'user/signup.html', {'form': form, 'po_email': request.POST['email'], 'po_username': request.POST['username']})
     else:
         form = SignUpForm()
 
