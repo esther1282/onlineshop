@@ -40,11 +40,6 @@ a {
     background: none;
 }
 
-.container {
-  width: 1120px;
-  max-width: none !important;
-}
-
 div .detail-product{
     margin: 0em 6em;
     display: flex;
@@ -100,6 +95,7 @@ div .content-product {
 .thumbnail_images ul li:hover{
     border: 2px solid #000
 }
+.
 .content p{
     font-size: 12px
 }
