@@ -11,6 +11,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/42209b930c.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+        <!--폰트-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
 
     <title>{% block title %}{% endblock %}OnlineShop</title>
 </head>
@@ -18,11 +22,6 @@
     <div style="">    {% include 'shop/user_navbar.html' %}</div>
     <div class="">    {% include 'shop/navbar.html' %}</div>
 
-        <div style="padding-bottom: 100px; padding-top: 50px" >
-            <div>
-            {% block content %} {% endblock %}
-            </div>
-        </div>
         {% for message in messages %}
                 <div class="alert {{ message.tags }} alert-auto-dismissible alert-dismissible notification-container text-center" role="alert">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -31,6 +30,12 @@
                     {{ message }}
                 </div>
         {% endfor %}
+        <div style="padding-bottom: 100px; padding-top: 50px" >
+            <div>
+            {% block content %} {% endblock %}
+            </div>
+        </div>
+
 
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>

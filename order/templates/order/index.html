@@ -11,10 +11,10 @@ Order
 <link rel="stylesheet" type="text/css" href="{% static 'css/order/ordercheck.css' %}">
 {% if orders %}
 {% for order in orders %}
-<div class="card mt-50 mb-50">
+<div class="card mt-50 mb-50" style="  font-family: 'Nanum Gothic', sans-serif;">
     <div class="col d-flex"><span class="text-muted" id="orderno">주문번호 #{{ order.get_order_number }}</span></div>
 
-    <div class="title mx-auto"> Thank you for your order! </div>
+    <div class="title mx-auto" style="font-family: 'Century Gothic'">Thank you for your order ! </div>
     <div class="main"> <span id="sub-title">
         <p><b>결제 날짜</b></p>
         <p>{{ order.date_ordered | date:"Y-m-d H:i" }}</p></span>
