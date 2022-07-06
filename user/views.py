@@ -37,7 +37,13 @@ def signup(request):
                 messages.success(request, '회원 가입 성공')
                 return HttpResponseRedirect(reverse('shop:index'))
         messages.error(request, '회원 가입 실패')
-        return render(request, 'user/signup.html', {'form': form, 'po_email': request.POST['email'], 'po_username': request.POST['username']})
+        context = {
+            'form': form,
+            'po_email': request.POST['email'],
+            'po_username': request.POST['username'],
+            'po_pw1': request.POST['password1'],
+            'po_pw2': request.POST['password2']}
+        return render(request, 'user/signup.html', context)
     else:
         form = SignUpForm()
 

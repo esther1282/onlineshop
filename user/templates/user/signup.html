@@ -63,7 +63,7 @@ Sign Up
                   <div class="d-flex flex-row align-items-center mb-4">
                     <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
                     <div class="form-outline flex-fill mb-0">
-                      <input type="password" name="password1" id="id_password" class="form-control" placeholder="password"/>
+                      <input type="password" name="password1" id="id_password" class="form-control" placeholder="password" {% if po_pw1 %}value="{{po_pw1}}"{%endif%}/>
                         {% if form.password1.errors %}
                             <script type="text/javascript">
                                 document.getElementsByName('password1')[0].setAttribute('class', 'form-control is-invalid')
@@ -80,7 +80,7 @@ Sign Up
                     <div class="d-flex flex-row align-items-center mb-4">
                     <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
                     <div class="form-outline flex-fill mb-0">
-                      <input type="password" name="password2" id="id_password2" class="form-control" placeholder="password confirmation"/>
+                      <input type="password" name="password2" id="id_password2" class="form-control" placeholder="password confirmation" {% if po_pw2 %}value="{{po_pw2}}"{%endif%}/>
                         {% if form.password2.errors %}
                             <script type="text/javascript">
                                 document.getElementsByName('password2')[0].setAttribute('class', 'form-control is-invalid')
