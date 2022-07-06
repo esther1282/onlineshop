@@ -18,7 +18,7 @@ Shop
         <div class="row">
             {% if all_products %}
                 {% for product in all_products %}
-                <div class="col-sm-4 col-sm-2" style="float: left; width: 300px;">
+                <div class="col-sm-3 col-sm-3" style="float: left; width: 300px;">
                     <div class="thumbnail">
                         <a href="{% url 'shop:detail' product.pk %}">
                             <img src="{{ product|image_tag }}" class="img-fluid" style="width: auto; height: 300px;">

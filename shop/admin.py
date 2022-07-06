@@ -7,7 +7,7 @@ from django.core.exceptions import ValidationError
 class ProductAdminForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['images'] = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True}))
+        self.fields['images'] = forms.ImageField(widget=forms.ClearableFileInput(attrs={'multiple': True}))
 
     class Meta:
         model = Product

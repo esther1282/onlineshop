@@ -1,6 +1,7 @@
 from datetime import datetime
 from django.db import models
 from random import choice
+from PIL import Image
 
 class Category(models.Model):
     title = models.CharField(max_length=150)
@@ -40,3 +41,14 @@ class ProductImage(models.Model):
 
     def __str__(self):
         return self.product.name + "'s images"
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        img = Image.open(self.image.path)
+
+        if img.height > 400 or img.width > 400:
+            output_size = (400, 400)
+            img.thumbnail(output_size)
+            img.save(self.image.path)
+
+
