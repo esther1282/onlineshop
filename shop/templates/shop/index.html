@@ -5,9 +5,6 @@
 Shop
 {% endblock title %}
 {% block content %}
-<<<<<<< HEAD
-    <div class="goods-container container-fluid">
-=======
     <div class="goods-container container-fluid" style="font-family: 'Century Gothic'">
         <div class="menu">
             <p class="menu-title">{% if category_name %}{{ category_name }}{% else %}Category{% endif %}
@@ -18,8 +15,6 @@ Shop
             {% endfor %}
             </ul>
         </div>
-
->>>>>>> ce905aa7f64198cec1a5252bdecb92fc985563e7
         <div class="row">
             {% if all_products %}
                 {% for product in all_products %}
