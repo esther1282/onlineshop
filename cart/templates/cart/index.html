@@ -5,8 +5,8 @@
     {% load humanize %}
     {% load mathfilters %}
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/shop/base.css' %}">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/cart/custom.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/shop/styles.css' %}">
             <!--폰트-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -28,7 +28,7 @@
          <p class="menu-title">장바구니</p>
      </div>
 
-    <div class="content" >
+    <div class="content container" >
         {% ifnotequal cart.get_cart_items.count 0 %}
         <div class="cart-custom text-center">
             {% csrf_token %}
