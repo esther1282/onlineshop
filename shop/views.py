@@ -11,7 +11,7 @@ def index(request):
         user.username = ' '
 
     query = request.GET.get("q")
-    if query: #검색할 때 xss 취약하게 설정하기
+    if query:
         search_products = all_products.filter(
             Q(name__icontains=query) | Q(content__icontains=query)
         ).distinct()
