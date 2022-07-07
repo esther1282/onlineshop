@@ -1,9 +1,5 @@
-__pycache__/
-*.py[cod]
-
-.Python
-
+*.pyc
+__pycache__
+myvenv
 db.sqlite3
 .DS_Store
-
-.vscode/
