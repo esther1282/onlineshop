@@ -1,6 +1,7 @@
 from .models import Product, ProductImage, Category
 from django.shortcuts import render, get_object_or_404
 from django.db.models import Q
+from django.utils.html import escape
 
 def index(request):
     all_products = Product.objects.all()
@@ -10,13 +11,13 @@ def index(request):
         user.username = ' '
 
     query = request.GET.get("q")
-    if query: #검색할 때 xss 취약하게 설정하기
+    if query:
         search_products = all_products.filter(
             Q(name__icontains=query) | Q(content__icontains=query)
         ).distinct()
         if search_products.count()==0:
             return render(request, 'shop/index.html', {'all_products': search_products, 'user': user, 'query': query})
-        return render(request, 'shop/index.html', {'all_products': search_products, 'user':user })
+        return render(request, 'shop/index.html', {'all_products': search_products, 'user':user, 'query':query })
 
     return render(request, 'shop/index.html', {'all_products': all_products, 'user':user})
 
