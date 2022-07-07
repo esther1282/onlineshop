@@ -1,6 +1,7 @@
 from .models import Product, ProductImage, Category
 from django.shortcuts import render, get_object_or_404
 from django.db.models import Q
+from django.utils.html import escape
 
 def index(request):
     all_products = Product.objects.all()
@@ -16,7 +17,7 @@ def index(request):
         ).distinct()
         if search_products.count()==0:
             return render(request, 'shop/index.html', {'all_products': search_products, 'user': user, 'query': query})
-        return render(request, 'shop/index.html', {'all_products': search_products, 'user':user })
+        return render(request, 'shop/index.html', {'all_products': search_products, 'user':user, 'query':query })
 
     return render(request, 'shop/index.html', {'all_products': all_products, 'user':user})
 
