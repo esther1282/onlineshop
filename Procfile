@@ -1,1 +1,1 @@
-web: gunicorn gotroot_site.wsgi --log-file -
+web: gunicorn onlineshop.wsgi --log-file -
