@@ -46,7 +46,7 @@ class OrderUser(models.Model):
     username = models.CharField(unique=True, null=False, max_length=20, verbose_name="이름")
     phone_number = models.CharField(null=False, max_length=255, verbose_name="핸드폰")
     address = models.CharField(null=False, max_length=255, verbose_name="주소")
-    card_number = models.CharField(null=False, max_length=255, verbose_name="결제카드번호")
+    card_number = models.CharField(null=False, max_length=255, verbose_name="결제 카드 번호")
 
     USERNAME_FIELD = 'email'  # email로 구분
     REQUIRED_FIELDS = ['username', 'phone_number', 'address', 'card_number']
