@@ -26,8 +26,7 @@ APPS_DIR = BASE_DIR / "onlineshop"
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-41313eoqlw%c-6=@5b)e8tpsn5*s+fidb+@%!amrsdh(nw4h!p')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-#DEBUG = FALSE
-DEBUG = bool( os.environ.get('DJANGO_DEBUG', True) )
+DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -151,6 +150,3 @@ MESSAGE_TAGS = {
     messages.WARNING: 'alert-warning',
     messages.ERROR: 'alert-danger',
 }
-
-import django_heroku
-django_heroku.settings(locals())
