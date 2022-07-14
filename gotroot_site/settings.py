@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
-import dj_database_url
 from django.contrib import messages
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -23,7 +22,7 @@ APPS_DIR = BASE_DIR / "onlineshop"
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-41313eoqlw%c-6=@5b)e8tpsn5*s+fidb+@%!amrsdh(nw4h!p')
+SECRET_KEY = 'django-insecure-41313eoqlw%c-6=@5b)e8tpsn5*s+fidb+@%!amrsdh(nw4h!p'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -57,7 +56,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'gotroot_site.urls'
